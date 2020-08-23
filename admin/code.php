@@ -31,6 +31,8 @@ if(isset($_POST['submitBtn'])){
             
             $userInfo = "INSERT INTO db_science_university_users VALUES('$name', '$email', '$hashedPassword', '2004-08-09')";
             $runQuery = mysqli_query($con, $userInfo);
+            echo 'email inserted successfully';
+
             if($runQuery){
                 echo 'email inserted successfully';
             }

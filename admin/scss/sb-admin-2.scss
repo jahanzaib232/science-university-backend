@@ -18,3 +18,21 @@
 @import "login.scss";
 @import "error.scss";
 @import "footer.scss";
+
+.passwordDontMatch {
+    box-shadow: -1px 1px 1px #e41a1a;
+    border: 1px solid #f11313;
+    &:focus{
+        border-color: #f11313;
+        box-shadow: -1px 1px 1px #e41a1a;
+    }
+}
+.passwordMatch{
+    box-shadow: -1px 1px 1px #118e11;
+    border: 1px solid #2c9a25;
+    &:focus{
+        border-color: #2c9a25;
+        box-shadow: -1px 1px 1px #118e11;
+    }
+
+}

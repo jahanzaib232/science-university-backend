@@ -288,5 +288,6 @@ include('includes/navbar.php');?>
       <!-- End of Main Content -->
 
 <?php 
-include('includes/script.php');
-include('includes/footer.php');?>
+  include('includes/script.php');
+  include('includes/footer.php');
+?>

@@ -1,63 +1,46 @@
+<?php
+require 'database.php';
+?>
 <?php 
 include('includes/header.php');
 include('includes/navbar.php');?>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Sign up</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <form method="POST" action="code.php">
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name" required>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="inputConfirmPassword">Password</label>
+            <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password" required>
+          </div>
+          <div class="form-group">
+            <label for="inputDate">Date</label>
+              <input class="form-control" type="date" id="inputDate" name="inputDate" required>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<form action="code.php" method="POST">
-
-        <div class="modal-body">
-
-            <div class="form-group">
-                <label> Username </label>
-                <input type="text" name="username" class="form-control" placeholder="Enter Username">
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control checking_email" placeholder="Enter Email">
-                <small class="error_email" style="color: red;"></small>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter Password">
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
-            </div>
-
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="registerbtn" class="btn btn-primary">Save</button>
-        </div>
-      </form>
-
     </div>
   </div>
 </div>
@@ -78,16 +61,14 @@ include('includes/navbar.php');?>
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
+                            <th>Date of Birth</th>
                             <th>Start Date</th>
-                            <th>Salary</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -102,7 +83,7 @@ include('includes/navbar.php');?>
 
     </div>
 </div>
-
 <?php 
 include('includes/script.php');
+include('matchingPassword.php');
 include('includes/footer.php');?>

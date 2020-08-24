@@ -1,26 +1,21 @@
 <script> 
 var password = $('#inputPassword');
 var confPassword = $('#inputConfirmPassword');
+var submitBtn = $("#submitBtn");
 
 
-confPassword.keyup(function(){
-    if(confPassword.val() == password.val()){
-        password.addClass('passwordMatch');
-        confPassword.addClass('passwordMatch');
-    } else {
-        password.addClass('passwordDontMatch');
-        confPassword.addClass('passwordDontMatch');
-    }
-    if(confPassword.val() == ""){
-        confPassword.removeClass('passwordMatch');
-        confPassword.removeClass('passwordDontMatch');
+submitBtn.on('click', function(event){
+    if(password.val() != confPassword.val()){
+        event.preventDefault();
+        alert('Passwords dont match');
     }
 });
-password.keyup(function(){
+password.change(function(){
     if(confPassword.val() == password.val()){
         password.addClass('passwordMatch');
         confPassword.addClass('passwordMatch');
-    } else {
+    } 
+    if(confPassword.val() != password.val()){
         password.addClass('passwordDontMatch');
         confPassword.addClass('passwordDontMatch');
     }
@@ -29,4 +24,19 @@ password.keyup(function(){
         password.removeClass('passwordDontMatch');
     }
 });
+confPassword.change(function(){
+    if(confPassword.val() == password.val()){
+        password.addClass('passwordMatch');
+        confPassword.addClass('passwordMatch');
+    } 
+    if(confPassword.val() != password.val()){
+        password.addClass('passwordDontMatch');
+        confPassword.addClass('passwordDontMatch');
+    }
+    if(confPassword.val() == ""){
+        confPassword.removeClass('passwordMatch');
+        confPassword.removeClass('passwordDontMatch');
+    }
+});
+
 </script>

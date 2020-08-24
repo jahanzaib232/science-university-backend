@@ -30,7 +30,7 @@ include('includes/navbar.php');?>
             <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">
           </div>
           <div class="form-group">
-            <label for="inputConfirmPassword">Password</label>
+            <label for="inputConfirmPassword">Confirm Password</label>
             <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password" required>
           </div>
           <div class="form-group">

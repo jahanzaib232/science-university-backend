@@ -1,57 +1,46 @@
 <?php
 
 require 'database.php';
-$name = $_POST['inputName'];
-$email = $_POST['inputEmail'];
-$password = $_POST['inputPassword'];
-$confirmPass = $_POST['inputConfirmPassword'];
-$dateOfBirth = $_POST['inputDate'];
 
 
 if(isset($_POST['submitBtn'])){
+    
+    $name = $_POST['inputName'];
+    $email = $_POST['inputEmail'];
+    $password = $_POST['inputPassword'];
+    $confirmPass = $_POST['inputConfirmPassword'];
+    $dateOfBirth = $_POST['inputDate'];
+
     $sql = "SELECT * FROM db_science_university_users WHERE email='$email'";
     $result = mysqli_query($con, $sql);
 
-    // if database has data in it
-    if(mysqli_num_rows($result)>0){ //true
-        // data of each row
-        $row = mysqli_fetch_assoc($result);
-
-        if($email == $row['email']){
-            echo 'email exists';
-            // echo "<script>
-            // $(window).load(function(){
-            //     $('#userExists').modal('show');
-            // });
-            // </script>";
-            // include 'userExists.php';
+    if( $password === $confirmPass && !(mysqli_num_rows($result)>0)){
+        $salt = 'ERigjdsg943dg'.$password;
+        $hashedPassword = hash('sha512', $salt);
+        $userInfo = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
+        $runQuery = mysqli_query($con, $userInfo);
+        if($runQuery){
+            $_SESSION['success'] = "Admin Profile Added!";
+            header("Location: register.php");
         } else {
-            $salt = 'ERigjdsg943dg'.$password;
-            $hashedPassword = hash('sha512', $salt);
-            
-            $userInfo = "INSERT INTO db_science_university_users VALUES('$name', '$email', '$hashedPassword', '2004-08-09')";
-            $runQuery = mysqli_query($con, $userInfo);
-            echo 'email inserted successfully';
-
-            if($runQuery){
-                echo 'email inserted successfully';
-            }
-            // echo 'email doesnt exist';
+            $_SESSION['status'] = "Admin Profile NOT Added!";
+            header('Location: register.php');
         }
-    } 
-    // else {
-    //     $salt = 'ERigjdsg943dg'.$password;
-    //     $hashedPassword = hash('sha512', $salt);
+    } else {
+        $_SESSION['status'] = "Passwords Don't Match";
+        // echo '<script type="text/javascript"> alert("Email already exists.. Try another email")</script>';
+        header("Location: register.php"); 
+    }
 
-    //     $userInfo = "INSERT INTO db_science_university_users values('$name', '$email', '$hashedPassword', '$dateOfBirth')";
-    //     $runQuery = mysqli_query($con, $userInfo);
-    //     if($runQuery){
-    //         // echo "<script>
-    //         // $(window).load(function(){
-    //         //     $('#adminInsertedSuccessfully').modal('show');
-    //         // });
-    //         // </script>";
-    //         // include 'adminInsertedSuccessfully.php';
+    // if database has data in it
+    // if(mysqli_num_rows($result)>0){ //true
+    //     // data of each row
+    //     $row = mysqli_fetch_assoc($result);
+    //     if($email == $row['email']) {
+    //         echo 'email exists';
+    //     } else {
+    //         $_SESSION['success'] = "Admin Profile Added!";
+    //         header("Location: register.php");
     //     }
     // }
 }

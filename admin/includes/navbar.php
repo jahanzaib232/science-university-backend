@@ -46,7 +46,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="register.php">
+  <a class="nav-link" href="adminprofile.php">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Admin Profile</span></a>
 </li>
@@ -86,14 +86,20 @@
   </a>
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Login Screens:</h6>
-      <a class="collapse-item" href="login.html">Login</a>
-      <a class="collapse-item" href="register.html">Register</a>
-      <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+      <h6 class="collapse-header">Main Page Sections:</h6>
+      <a class="collapse-item" href="navbar.php">Navbar</a>
+      <a class="collapse-item" href="header.php">Header</a>
+      <a class="collapse-item" href="news.php">News</a>
+      <a class="collapse-item" href="courses.php">Courses</a>
+      <a class="collapse-item" href="ticker.php">Ticker</a>
+      <a class="collapse-item" href="events.php">Events</a>
+      <a class="collapse-item" href="forms.php">Forms</a>
+      <a class="collapse-item" href="footer.php">Footer</a>
+
       <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="404.html">404 Page</a>
-      <a class="collapse-item" href="blank.html">Blank Page</a>
+      <a class="collapse-item" href="404.php">404 Page</a>
+      <a class="collapse-item" href="blank.php">Blank Page</a>
     </div>
   </div>
 </li>
@@ -338,7 +344,7 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-          <form action="logout.php" method="POST"> 
+          <form action="login.html" method="POST"> 
           
             <button type="submit" name="logout_btn" class="btn btn-primary">Logout</button>
 

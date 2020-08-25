@@ -21,27 +21,14 @@ if(isset($_POST['submitBtn'])){
         $runQuery = mysqli_query($con, $userInfo);
         if($runQuery){
             $_SESSION['success'] = "Admin Profile Added!";
-            header("Location: register.php");
+            header("Location: adminprofile.php");
         } else {
             $_SESSION['status'] = "Admin Profile NOT Added!";
-            header('Location: register.php');
+            header('Location: adminprofile.php');
         }
     } else {
         $_SESSION['status'] = "Passwords Don't Match";
-        // echo '<script type="text/javascript"> alert("Email already exists.. Try another email")</script>';
-        header("Location: register.php"); 
+        header("Location: adminprofile.php"); 
     }
-
-    // if database has data in it
-    // if(mysqli_num_rows($result)>0){ //true
-    //     // data of each row
-    //     $row = mysqli_fetch_assoc($result);
-    //     if($email == $row['email']) {
-    //         echo 'email exists';
-    //     } else {
-    //         $_SESSION['success'] = "Admin Profile Added!";
-    //         header("Location: register.php");
-    //     }
-    // }
 }
 ?>

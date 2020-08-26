@@ -1,6 +1,6 @@
 <?php
 
-require 'database.php';
+require '../database.php';
 
 
 if(isset($_POST['submitBtn'])){
@@ -11,24 +11,35 @@ if(isset($_POST['submitBtn'])){
     $confirmPass = $_POST['inputConfirmPassword'];
     $dateOfBirth = $_POST['inputDate'];
 
+    // hash password
+    $salt = 'ERigjdsg943dg'.$password;
+    $hashedPassword = hash('sha512', $salt);
+
+    // select from users where email already exists
     $sql = "SELECT * FROM db_science_university_users WHERE email='$email'";
     $result = mysqli_query($con, $sql);
 
-    if( $password === $confirmPass && !(mysqli_num_rows($result)>0)){
-        $salt = 'ERigjdsg943dg'.$password;
-        $hashedPassword = hash('sha512', $salt);
-        $userInfo = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
-        $runQuery = mysqli_query($con, $userInfo);
-        if($runQuery){
-            $_SESSION['success'] = "Admin Profile Added!";
-            header("Location: adminprofile.php");
+    $numOfRows = mysqli_num_rows($result);
+
+    if( $password === $confirmPass){
+        // if email doesnt exist in database
+        if($numOfRows == 0){
+            // insert into db
+            $userInfo = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
+            $runQuery = mysqli_query($con, $userInfo);
+            if($runQuery){
+                header("Location: ../adminprofile.php");
+            } else {
+                header('Location: ../adminprofile.php');
+                echo 'DID NOT insert into database';
+            }
         } else {
-            $_SESSION['status'] = "Admin Profile NOT Added!";
-            header('Location: adminprofile.php');
+            echo 'email already exists';
         }
     } else {
-        $_SESSION['status'] = "Passwords Don't Match";
-        header("Location: adminprofile.php"); 
+        header("Location: ../adminprofile.php"); 
+        echo 'password doesnt match';
+
     }
 }
 ?>

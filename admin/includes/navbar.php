@@ -290,9 +290,19 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                  <?php
+                  require '../admin/database.php';
+
+                  require 'Login_Register_ForgotPassword/login.php';
+                  // require 'admin/Login_Register_ForgotPassword/register.php';
+
                   
-               ADMIN
-                  
+                  $sql = "SELECT * FROM db_science_university_users WHERE email='$email'";
+                  $runQuery = mysqli_query($con, $sql);
+                  $row =  mysqli_fetch_assoc($runQuery);
+
+                  echo $row['name'];
+                  ?>
                 </span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>

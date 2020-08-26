@@ -1,22 +1,33 @@
 <?php
 
-require '../database.php';
+// require '../database.php';
 
 if(isset($_POST['loginBtn'])){
 
-    header('Location: ../adminprofile.php');
+    // header('Location: ../adminprofile.php');
+    $email = $_POST['loginEmail'];
+    $password = $_POST['loginPassword'];
+    
+    
+    $salt = 'ERigjdsg943dg'.$password;
+    $hashedPassword = hash('sha512', $salt);
 
-    // $email = $_POST['loginEmail'];
-    // $password = $_POST['loginPassword'];
+    $sqlHashedPasswordInDB = "SELECT * FROM db_science_university_users WHERE email='$email'";
+    $runQuery = mysqli_query($con, $sqlHashedPasswordInDB);
 
-    // $sql = "INSERT INTO db_science_university_navbar (nav_title, nav_link, db_science_university_users_id) VALUES ('$navTitle', '$navLink', '$admin')";
-    // $runQuery = mysqli_query($con, $sql);
-    // if($runQuery){     
+    if(mysqli_num_rows($runQuery) > 0){
+        $row = mysqli_fetch_assoc($runQuery);
         
-    //     header('Location: ../adminprofile.php');
-    // } else {
-    //     echo 'Insert didnt work';
-    // }
+        if($hashedPassword == $row['password']){
+            header('Location: ../adminprofile.php');
+        }
+        else {
+            header('Location: ../login.html');
+        }
+    } else {
+        echo 'email doesnt exist';
+        header('Location: ../login.html');
+    }    
 }
 
 ?>

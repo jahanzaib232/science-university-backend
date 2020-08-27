@@ -15,7 +15,7 @@ include('includes/navbar.php');?>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/code.php">
+        <form method="POST" action="code.php">
           <div class="form-group">
             <label for="inputName">Name</label>
             <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name" required>

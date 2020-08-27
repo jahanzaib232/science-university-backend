@@ -1,7 +1,7 @@
 <?php
-require '../adminprofile.php';
+require_once '../adminprofile.php';
 
-require '../database.php';
+require_once '../database.php';
 
 if(isset($_POST['submitBtn'])){
 

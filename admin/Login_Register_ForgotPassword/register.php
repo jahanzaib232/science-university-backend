@@ -1,5 +1,5 @@
 <?php
-// require_once '../database.php';
+require_once '../database.php';
 
 
 if(isset($_POST['registerBtn'])){
@@ -25,7 +25,7 @@ if(isset($_POST['registerBtn'])){
         $sqlInsert = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
         $runQuery = mysqli_query($con, $sqlInsert);
         if($runQuery){
-            header('Location: ../adminprofile.php');
+            header('Location: ../login.html');
         } else {
             echo mysqli_error($con);
             header('Location: ../register.html');

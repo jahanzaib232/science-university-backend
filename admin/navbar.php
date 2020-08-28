@@ -1,6 +1,6 @@
 <?php 
-include('includes/header.php');
-include('includes/navbar.php');?>
+include_once('includes/header.php');
+include_once('includes/navbar.php');?>
 
 <div class="modal fade" id="addnav" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

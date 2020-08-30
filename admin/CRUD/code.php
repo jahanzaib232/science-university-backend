@@ -1,6 +1,6 @@
 <?php
 
-require '../database.php';
+require_once '../database.php';
 
 
 if(isset($_POST['submitBtn'])){
@@ -15,18 +15,18 @@ if(isset($_POST['submitBtn'])){
     $salt = 'ERigjdsg943dg'.$password;
     $hashedPassword = hash('sha512', $salt);
 
-    // select from users where email already exists
-    $sql = "SELECT * FROM db_science_university_users WHERE email='$email'";
-    $result = mysqli_query($con, $sql);
-
-    $numOfRows = mysqli_num_rows($result);
+    // PDO data retreival of email if it already exists
+    $sql = "SELECT COUNT(*) FROM db_science_university_users WHERE email=?"; 
+    $result = $conn->prepare($sql); 
+    $result->execute([$email]); 
+    $number_of_rows = $result->fetchColumn(); 
 
     if( $password === $confirmPass){
         // if email doesnt exist in database
-        if($numOfRows == 0){
-            // insert into db
-            $userInfo = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
-            $runQuery = mysqli_query($con, $userInfo);
+        if($number_of_rows == 0){
+            // insert into db values
+            $sqlInsert = "INSERT INTO db_science_university_users (name, email, password, DoB) VALUES ('$name', '$email', '$hashedPassword', '$dateOfBirth')";
+            $runQuery = $conn->exec($sqlInsert);
             if($runQuery){
                 header("Location: ../adminprofile.php");
             } else {

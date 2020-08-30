@@ -1,7 +1,17 @@
 <?php 
 include_once('includes/header.php');
-include_once('includes/navbar.php');?>
+include_once('includes/navbar.php');
+?>
 
+<?php
+require_once 'database.php';
+
+$sql = "SELECT n.nav_title, n.nav_link, user.name 
+FROM db_science_university_navbar as n JOIN db_science_university_users as user 
+WHERE user.id = n.db_science_university_users_id";
+$result = $conn->query($sql);
+$result->setFetchMode(PDO::FETCH_ASSOC);
+?>
 <div class="modal fade" id="addnav" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -12,7 +22,7 @@ include_once('includes/navbar.php');?>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/navbarCode.php">
+        <form method="POST" action="CRUD/navbar/navbarInsert.php">
           <div class="form-group">
             <label for="inputName">Navigation Title</label>
             <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle" placeholder="Enter title" required>
@@ -51,25 +61,29 @@ include_once('includes/navbar.php');?>
                         </tr>
                     </thead>
                     <tbody>
+                      <?php while($row = $result->fetch()): ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $row['nav_title']?></td>
+                            <td><?php echo $row['nav_link']?></td>
+                            <td><?php echo $row['name']?></td>
                             <td>
-                                <a href="#" class="btn btn-secondary btn-icon-split">
+                              <form method="POST" action="CRUD/navbar/navbarDelete.php">
+                                <button name="updateBtn" class="btn btn-secondary btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Edit</span>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split">
+                                </button>
+                                <button name="deleteBtn" type="submit" class="btn btn-danger btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-trash"></i>
                                     </span>
                                     <span class="text">Delete</span>
-                                </a>
+                                </button>
+                              </form>
                             </td>
                         </tr>
+                      <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
@@ -81,4 +95,5 @@ include_once('includes/navbar.php');?>
 
 <?php 
 include('includes/script.php');
-include('includes/footer.php');?>
+include('includes/footer.php');
+?>

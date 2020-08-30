@@ -10,14 +10,20 @@ if(isset($_POST['loginBtn'])){
     $salt = 'ERigjdsg943dg'.$password;
     $hashedPassword = hash('sha512', $salt);
 
-    $sqlHashedPasswordInDB = "SELECT * FROM db_science_university_users WHERE email='$email'";
-    $runQuery = mysqli_query($con, $sqlHashedPasswordInDB);
-    $row = mysqli_fetch_assoc($runQuery);
+    $sqlHashedPasswordInDB = "SELECT COUNT(*) FROM db_science_university_users WHERE email=?";
+    $result = $conn->prepare($sqlHashedPasswordInDB);
+    $result->execute([$email]);
+    $number_of_rows = $result->fetchColumn();
 
-    $_SESSION['username'] = $row['name'];
-
-    // echo $_SESSION['username'];
-    if(mysqli_num_rows($runQuery) > 0){
+    foreach($conn->query("SELECT * FROM db_science_university_users") as $row){
+        if($row['email'] === $email){
+            $_SESSION['username'] = $row['name'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['dateOfBirth'] = $row['DoB'];
+        }
+    }
+    
+    if($number_of_rows > 0){
         if($hashedPassword == $row['password']){
             header('Location: ../adminprofile.php');
         }
@@ -29,5 +35,4 @@ if(isset($_POST['loginBtn'])){
         header('Location: ../login.html');
     }    
 }
-
 ?>

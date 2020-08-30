@@ -5,7 +5,7 @@ session_start();
    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
   <div class="sidebar-brand-icon rotate-n-15">
     <i class="fas fa-laugh-wink"></i>
   </div>
@@ -49,7 +49,7 @@ session_start();
 
 
 <li class="nav-item">
-  <a class="nav-link" href="adminprofile.php">
+  <a class="nav-link" href="../adminprofile.php">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Admin Profile</span></a>
 </li>
@@ -65,10 +65,10 @@ session_start();
   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Custom Utilities:</h6>
-      <a class="collapse-item" href="utilities-color.html">Colors</a>
-      <a class="collapse-item" href="utilities-border.html">Borders</a>
-      <a class="collapse-item" href="utilities-animation.html">Animations</a>
-      <a class="collapse-item" href="utilities-other.html">Other</a>
+      <a class="collapse-item" href="utilities-color.php">Colors</a>
+      <a class="collapse-item" href="utilities-border.php">Borders</a>
+      <a class="collapse-item" href="utilities-animation.php">Animations</a>
+      <a class="collapse-item" href="utilities-other.php">Other</a>
     </div>
   </div>
 </li>
@@ -90,33 +90,33 @@ session_start();
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Main Page Sections:</h6>
-      <a class="collapse-item" href="navbar.php">Navbar</a>
-      <a class="collapse-item" href="header.php">Header</a>
-      <a class="collapse-item" href="news.php">News</a>
-      <a class="collapse-item" href="courses.php">Courses</a>
-      <a class="collapse-item" href="ticker.php">Ticker</a>
-      <a class="collapse-item" href="events.php">Events</a>
-      <a class="collapse-item" href="forms.php">Forms</a>
-      <a class="collapse-item" href="footer.php">Footer</a>
+      <a class="collapse-item" href="../admin/navbarPages.php">Navbar</a>
+      <a class="collapse-item" href="../admin/headerPages.php">Header</a>
+      <a class="collapse-item" href="../admin/news.php">News</a>
+      <a class="collapse-item" href="../admin/courses.php">Courses</a>
+      <a class="collapse-item" href="../admin/ticker.php">Ticker</a>
+      <a class="collapse-item" href="../admin/events.php">Events</a>
+      <a class="collapse-item" href="../admin/forms.php">Forms</a>
+      <a class="collapse-item" href="../admin/footerPages.php">Footer</a>
 
       <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="404.php">404 Page</a>
-      <a class="collapse-item" href="blank.php">Blank Page</a>
+      <a class="collapse-item" href="../404.php">404 Page</a>
+      <a class="collapse-item" href="../blank.php">Blank Page</a>
     </div>
   </div>
 </li>
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-  <a class="nav-link" href="charts.html">
+  <a class="nav-link" href="../charts.html">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Charts</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-  <a class="nav-link" href="tables.html">
+  <a class="nav-link" href="../tables.html">
     <i class="fas fa-fw fa-table"></i>
     <span>Tables</span></a>
 </li>

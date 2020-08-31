@@ -6,7 +6,7 @@ include_once('includes/navbar.php');
 <?php
 require_once 'database.php';
 
-$sql = "SELECT n.nav_title, n.nav_link, user.name 
+$sql = "SELECT n.id, n.nav_title, n.nav_link, user.name 
 FROM db_science_university_navbar as n JOIN db_science_university_users as user 
 WHERE user.id = n.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -67,19 +67,16 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['nav_link']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                              <form method="POST" action="CRUD/navbar/navbarDelete.php">
-                                <button name="updateBtn" class="btn btn-secondary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Edit</span>
-                                </button>
-                                <button name="deleteBtn" type="submit" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">Delete</span>
-                                </button>
+                            <form method="POST">
+                              <a 
+                              href="CRUD/navbar/navbarDelete.php/updateBtn=<?php echo $row['id'];?>"
+                              class="btn btn-secondary">
+                                  <span class="text">Edit</span>
+                              </a>
+                              <a href="CRUD/navbar/navbarDelete.php/deleteBtn=<?php echo $row['id'];?>" 
+                              class="btn btn-danger">
+                                  <span class="text">Delete</span>
+                              </a>
                               </form>
                             </td>
                         </tr>

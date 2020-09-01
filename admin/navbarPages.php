@@ -16,7 +16,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Sign up</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Navbar Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -67,26 +67,17 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['nav_link']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                            <form method="POST">
+                              <a href="" class="btn btn-secondary">Edit</a>
                               <a 
-                              href="CRUD/navbar/navbarDelete.php/updateBtn=<?php echo $row['id'];?>"
-                              class="btn btn-secondary">
-                                  <span class="text">Edit</span>
-                              </a>
-                              <a href="CRUD/navbar/navbarDelete.php/deleteBtn=<?php echo $row['id'];?>" 
-                              class="btn btn-danger">
-                                  <span class="text">Delete</span>
-                              </a>
-                              </form>
+                              href="CRUD/navbar/navbarDelete.php/deleteBtn=<?php echo $row["id"]; ?>" 
+                              class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                       <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
 </div>
 

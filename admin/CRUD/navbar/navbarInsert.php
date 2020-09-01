@@ -12,7 +12,7 @@ if(isset($_POST['submitBtn'])){
     $userID = $loggedInUser->fetchColumn();
 
     $sql = $conn->prepare("INSERT INTO db_science_university_navbar (nav_title, nav_link, db_science_university_users_id) VALUES (?, ?, ?)");
-    $sql->execute([$navTitle, $navLink, $userID]);
+    $runQuery = $sql->execute([$navTitle, $navLink, $userID]);
     if($runQuery){     
         header('Location: ../../navbarPages.php');
     } else {

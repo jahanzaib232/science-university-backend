@@ -91,18 +91,21 @@ session_start();
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Main Page Sections:</h6>
       <a class="collapse-item" href="../admin/navbarPages.php">Navbar</a>
-      <a class="collapse-item" href="../admin/headerPages.php">Header</a>
+      <a class="collapse-item" href="../admin/menu.php">Menu</a>
       <a class="collapse-item" href="../admin/news.php">News</a>
       <a class="collapse-item" href="../admin/courses.php">Courses</a>
       <a class="collapse-item" href="../admin/ticker.php">Ticker</a>
       <a class="collapse-item" href="../admin/events.php">Events</a>
       <a class="collapse-item" href="../admin/forms.php">Forms</a>
-      <a class="collapse-item" href="../admin/footerPages.php">Footer</a>
+
+      <h6 class="collapse-header">Categories:</h6>
+      <a class="collapse-item" href="../admin/newsCategory.php">News Category</a>
+      <a class="collapse-item" href="../admin/eventsCategory.php">Events Category</a>
 
       <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="../404.php">404 Page</a>
-      <a class="collapse-item" href="../blank.php">Blank Page</a>
+      <a class="collapse-item" href="../admin/404.php">404 Page</a>
+      <a class="collapse-item" href="../admin/blank.php">Blank Page</a>
     </div>
   </div>
 </li>

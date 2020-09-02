@@ -1,6 +1,16 @@
 <?php 
 include('includes/header.php');
-include('includes/navbar.php');?>
+include('includes/navbar.php');
+
+require_once 'database.php';
+
+
+$sql = "SELECT ticker.icon_image, ticker.number_, ticker.inc_or_decr, ticker.description_, user.name
+FROM db_science_university_ticker as ticker JOIN db_science_university_users as user
+WHERE user.id = ticker.db_science_university_user_id";
+$result = $conn->query($sql);
+$result->setFetchMode(PDO::FETCH_ASSOC);
+?>
 <div class="modal fade" id="addticker" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -11,14 +21,14 @@ include('includes/navbar.php');?>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/news/">
+        <form method="POST" action="CRUD/ticker/tickerInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputIconImage">Icon Image</label>
             <input type="file" class="form-control" id="inputIconImage" name="inputIconImage" required>
           </div>
           <div class="form-group">
-            <label for="inputTickerCount">Number</label>
-            <input type="text" class="form-control" id="inputTickerCount" name="inputTickerCount" placeholder="Select Category" required>
+            <label for="inputTickerNumber">Number</label>
+            <input type="text" class="form-control" id="inputTickerNumber" name="inputTickerNumber" placeholder="Select Category" required>
           </div>
           <div class="form-group">
             <label>Counter<br>
@@ -65,14 +75,19 @@ include('includes/navbar.php');?>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php while($row = $result->fetch()):?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $row['icon_image'];?></td>
+                            <td><?php echo $row['number_'];?></td>
+                            <td><?php echo $row['inc_or_decr'];?></td>
+                            <td><?php echo $row['description_'];?></td>
+                            <td><?php echo $row['name'];?></td>
+                            <td>
+                              <a href="" class="btn btn-secondary">Edit</a>
+                              <a href="" class="btn btn-danger">Delete</a>
+                            </td>
                         </tr>
+                    <?php endwhile;?>
                     </tbody>
                 </table>
             </div>

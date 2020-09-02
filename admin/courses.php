@@ -1,6 +1,16 @@
 <?php 
 include('includes/header.php');
-include('includes/navbar.php');?>
+include('includes/navbar.php');
+
+require_once 'database.php';
+
+
+$sql = "SELECT courses.category_title, courses.course_image, user.name
+FROM db_science_univeristy_courses as courses JOIN db_science_university_users as user
+WHERE user.id = courses.db_science_university_user_id";
+$result = $conn->query($sql);
+$result->setFetchMode(PDO::FETCH_ASSOC);
+?>
 <div class="modal fade" id="addcourse" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -11,14 +21,14 @@ include('includes/navbar.php');?>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/news/">
+        <form method="POST" action="CRUD/courses/coursesInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputCourseCategory">Course Category</label>
-            <input type="text" class="form-control" id="inputCourseCategory" name="inputCourseCategory" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputCourseCategory" name="inputCourseCategory" placeholder="Enter Category" required>
           </div>
           <div class="form-group">
             <label for="inputCourseImage">Course Image</label>
-            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Select Category" required>
+            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" required>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -50,12 +60,17 @@ include('includes/navbar.php');?>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php while($row = $result->fetch()):?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $row['category_title'];?></td>
+                            <td><?php echo $row['course_image'];?></td>
+                            <td><?php echo $row['name'];?></td>
+                            <td>
+                              <a href="" class="btn btn-secondary">Edit</a>
+                              <a href="" class="btn btn-danger">Delete</a>
+                              </td>
                         </tr>
+                    <?php endwhile;?>
                     </tbody>
                 </table>
             </div>

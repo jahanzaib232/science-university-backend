@@ -11,7 +11,7 @@ if(isset($_POST['submitBtn'])){
     $loggedInUser->execute([$_SESSION['email']]);
     $userID = $loggedInUser->fetchColumn();
 
-    $sql = "INSERT INTO db_science_univeristy_courses (category_title, course_image, db_science_university_user_id) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO db_science_university_courses (category_title, course_image, db_science_university_users_id) VALUES (?, ?, ?)";
     $result = $conn->prepare($sql);
     $runQuery = $result->execute([$course_category, $course_image, $userID]);
     if($runQuery){     

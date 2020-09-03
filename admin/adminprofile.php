@@ -1,9 +1,15 @@
 <?php
 require_once 'database.php';
+
+$sql = "SELECT user.id, user.name, user.email, user.DoB FROM db_science_university_users as user ";
+$result = $conn->query($sql);
+$result->setFetchMode(PDO::FETCH_ASSOC);
+
 ?>
 <?php 
 include('includes/header.php');
 include('includes/navbar.php');?>
+
 
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -34,7 +40,7 @@ include('includes/navbar.php');?>
             <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password" required>
           </div>
           <div class="form-group">
-            <label for="inputDate">Date</label>
+            <label for="inputDate">Date of Birth</label>
               <input class="form-control" type="date" id="inputDate" name="inputDate" required>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
@@ -62,19 +68,23 @@ include('includes/navbar.php');?>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Position</th>
                             <th>Date of Birth</th>
-                            <th>Start Date</th>
+                            <th>Operations</th>
                         </tr>
                     </thead>
                     <tbody>
+                      <?php while($row = $result->fetch()): ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?php echo $row['name'];?></td>
+                            <td><?php echo $row['email'];?></td>
+                            <td><?php echo $row['DoB'];?></td>
+                            <td>
+                              <a 
+                              href="CRUD/login/loginDelete.php/?delete=<?php echo $row['id'];?>" 
+                              class="btn btn-danger">Delete</a>
+                            </td>
                         </tr>
+                      <?php endwhile;?>
                     </tbody>
                 </table>
             </div>

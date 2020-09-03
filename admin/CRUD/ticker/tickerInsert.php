@@ -13,7 +13,7 @@ if(isset($_POST['submitBtn'])){
     $loggedInUser->execute([$_SESSION['email']]);
     $userID = $loggedInUser->fetchColumn();
 
-    $sql = "INSERT INTO db_science_university_ticker (icon_image, number_, 	inc_or_decr, description_, db_science_university_user_id) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO db_science_university_ticker (icon_image, number_, 	inc_or_decr, description_, db_science_university_users_id) VALUES (?, ?, ?, ?, ?)";
     $result = $conn->prepare($sql);
     $runQuery = $result->execute([$ticker_icon, $ticker_number, $ticker_counter, $ticker_description, $userID]);
     if($runQuery){     

@@ -6,9 +6,9 @@ include_once('includes/navbar.php');
 <?php
 require_once 'database.php';
 
-$sql = "SELECT n.id, n.nav_title, n.nav_link, user.name 
-FROM db_science_university_navbar as n JOIN db_science_university_users as user 
-WHERE user.id = n.db_science_university_users_id";
+$sql = "SELECT header.header_id, header.image_path_file, header.header_title, header.order_, user.name 
+FROM db_science_university_header as header JOIN db_science_university_users as user 
+WHERE user.id = header.db_science_university_users_id";
 $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -19,20 +19,38 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Navbar Section</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Header Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/navbar/navbarInsert.php">
+        <form method="POST" action="CRUD/header/headerInsert.php" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="inputNavTitle">Navigation Title</label>
-            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle" placeholder="Enter title" required>
+            <label for="inputHeaderTitle">Header Title</label>
+            <input type="text" class="form-control" id="inputHeaderTitle" name="inputHeaderTitle" placeholder="Enter title" required>
           </div>
           <div class="form-group">
-            <label for="inputNavLink">Navigation Link</label>
-            <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <label for="inputHeaderImage">Header Image</label>
+            <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link" required>
+          </div>
+          <div class="form-group">
+            <label>Order<br>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="1" required>
+            <label for="inputHeaderOrder">1</label>
+                  
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="2" required>
+            <label for="inputHeaderOrder">2</label>
+
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="3" required>
+            <label for="inputHeaderOrder">3</label>
+
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="4" required>
+            <label for="inputHeaderOrder">4</label>
+
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="5" required>
+            <label for="inputHeaderOrder">5</label>
+            </label>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -49,13 +67,13 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Navbar Section</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Header Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/navbar/navbarUpdate.php">
+        <form method="POST" action="CRUD/header/headerUpdate.php">
           <div class="form-group">
             <label for="inputNavTitle">Navigation Title</label>
             <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle"
@@ -63,8 +81,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
              required>
           </div>
           <div class="form-group">
-            <label for="inputNavLink">Navigation Link</label>
-            <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" 
+            <label for="inputHeaderOrder">Navigation Link</label>
+            <input type="radio" class="form-control" id="inputHeaderOrder" name="inputHeaderOrder" 
             placeholder="" 
             required>
           </div>
@@ -80,9 +98,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Navbar
+            <h6 class="m-0 font-weight-bold text-primary">Header
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addnav">
-                    Add Navigation
+                    Add Header
                 </button>
             </h6>
             
@@ -92,30 +110,32 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Navigation Title</th>
-                            <th>Navigation Link</th>
+                            <th>Header Title</th>
+                            <th>Header Image</th>
+                            <th>Header Order</th>
                             <th>Admin</th>
                             <th>Operation</th>
                         </tr>
                     </thead>
                     <tbody>
-                      <?php while($row = $result->fetch()): ?>
+                        <?php while($row = $result->fetch()):?>
                         <tr>
-                            <td><?php echo $row['nav_title']?></td>
-                            <td><?php echo $row['nav_link']?></td>
-                            <td><?php echo $row['name']?></td>
+                            <td><?php echo $row['header_title'];?></td>
+                            <td><?php echo $row['image_path_file'];?></td>
+                            <td><?php echo $row['order_'];?></td>
+                            <td><?php echo $row['name'];?></td>
                             <td>
                               <a 
                               data-toggle="modal" 
                               data-target="#updaterow"
-                              href="CRUD/navbar/navbarUpdate.php/?edit=<?php echo $_SESSION['edit'] = $row["id"];?>" 
+                              href="CRUD/header/headerUpdate.php/?edit=<?php echo $_SESSION['edit'] = $row["id"];?>" 
                               class="btn btn-secondary">Edit</a>
                               <a 
-                              href="CRUD/navbar/navbarDelete.php/?delete=<?php echo $row["id"];?>" 
+                              href="CRUD/header/headerDelete.php/?delete=<?php echo $row["header_id"];?>" 
                               class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
-                      <?php endwhile; ?>
+                        <?php endwhile;?>
                     </tbody>
                 </table>
             </div>

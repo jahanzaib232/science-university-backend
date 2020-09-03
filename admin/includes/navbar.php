@@ -39,8 +39,8 @@ session_start();
   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Custom Components:</h6>
-      <a class="collapse-item" href="buttons.html">Buttons</a>
-      <a class="collapse-item" href="cards.html">Cards</a>
+      <a class="collapse-item" href="../admin/buttons.php">Buttons</a>
+      <a class="collapse-item" href="../admin/cards.php">Cards</a>
     </div>
   </div>
 </li>
@@ -49,7 +49,7 @@ session_start();
 
 
 <li class="nav-item">
-  <a class="nav-link" href="../adminprofile.php">
+  <a class="nav-link" href="../admin/adminprofile.php">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Admin Profile</span></a>
 </li>
@@ -91,6 +91,7 @@ session_start();
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Main Page Sections:</h6>
       <a class="collapse-item" href="../admin/navbarPages.php">Navbar</a>
+      <a class="collapse-item" href="../admin/header.php">Header</a>
       <a class="collapse-item" href="../admin/menu.php">Menu</a>
       <a class="collapse-item" href="../admin/news.php">News</a>
       <a class="collapse-item" href="../admin/courses.php">Courses</a>
@@ -101,28 +102,10 @@ session_start();
       <h6 class="collapse-header">Categories:</h6>
       <a class="collapse-item" href="../admin/newsCategory.php">News Category</a>
       <a class="collapse-item" href="../admin/eventsCategory.php">Events Category</a>
-
-      <div class="collapse-divider"></div>
-      <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="../admin/404.php">404 Page</a>
-      <a class="collapse-item" href="../admin/blank.php">Blank Page</a>
     </div>
   </div>
 </li>
 
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-  <a class="nav-link" href="../charts.html">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Charts</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="../tables.html">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Tables</span></a>
-</li>
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

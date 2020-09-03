@@ -5,9 +5,9 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT ticker.icon_image, ticker.number_, ticker.inc_or_decr, ticker.description_, user.name
+$sql = "SELECT ticker.ticker_id, ticker.icon_image, ticker.number_, ticker.inc_or_decr, ticker.description_, user.name
 FROM db_science_university_ticker as ticker JOIN db_science_university_users as user
-WHERE user.id = ticker.db_science_university_user_id";
+WHERE user.id = ticker.db_science_university_users_id";
 $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
@@ -83,8 +83,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['description_'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a href="" class="btn btn-secondary">Edit</a>
-                              <a href="" class="btn btn-danger">Delete</a>
+                              <a 
+                              href="CRUD/ticker/tickerUpdate.php/?edit=<?php echo $row['ticker_id']; ?>" 
+                              class="btn btn-secondary">Edit</a>
+                              <a 
+                              href="CRUD/ticker/tickerDelete.php/?delete=<?php echo $row['ticker_id']; ?>" 
+                              class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile;?>

@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT menu.text, menu.icon, menu.url, menu.parent, menu.type, user.name
+$sql = "SELECT menu.menu_id, menu.text, menu.icon, menu.url, menu.parent, menu.type, user.name
 FROM db_science_university_menu as menu JOIN db_science_university_users as user
 WHERE user.id = menu.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -75,8 +75,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>URL</th>
                             <th>Parent</th>
                             <th>Type (Footer, Header, Social Media)</th>
-                            <th>Operations</th>
                             <th>Admin</th>
+                            <th>Operations</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,11 +87,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['url']?></td>
                             <td><?php echo $row['parent']?></td>
                             <td><?php echo $row['type']?></td>
-                            <td>
-                              <a href="" class="btn btn-secondary">Edit</a>
-                              <a href="" class="btn btn-danger">Delete</a>
-                            </td>
                             <td><?php echo $row['name']?></td>
+                            <td>
+                              <a 
+                              href="CRUD/menu/menuUpdate.php/?edit=<?php echo $row["menu_id"];?>" 
+                              class="btn btn-secondary">Edit</a>
+                              <a 
+                              href="CRUD/menu/menuDelete.php/?delete=<?php echo $row["menu_id"];?>" 
+                              class="btn btn-danger">Delete</a>
+                            </td>
                         </tr>
                       <?php endwhile; ?>
                     </tbody>

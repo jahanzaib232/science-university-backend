@@ -4,7 +4,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT events.event_title, events.event_description, events.event_icon, events.event_date, events.event_start_time, events.event_end_time, events.event_location, events_cat.category_name, user.name
+$sql = "SELECT events.id, events.event_title, events.event_description, events.event_icon, events.event_date, events.event_start_time, events.event_end_time, events.event_location, events_cat.category_name, user.name
 FROM db_science_university_events as events JOIN db_science_university_users as user JOIN events_category as events_cat
 WHERE user.id = events.db_science_university_users_id AND events_cat.category_id = events.event_category_category_id";
 $result = $conn->query($sql);
@@ -84,6 +84,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     <thead>
                         <tr>
                             <th>Event Title</th>
+                            <th>Event Category</th>
                             <th>Description</th>
                             <th>Event Icon</th>
                             <th>Event Date</th>
@@ -98,6 +99,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                       <?php while($row = $result->fetch()):?>
                         <tr>
                             <td><?php echo $row['event_title'];?></td>
+                            <td><?php echo $row['category_name'];?></td>
                             <td><?php echo $row['event_description'];?></td>
                             <td><?php echo $row['event_icon'];?></td>
                             <td><?php echo $row['event_date'];?></td>
@@ -106,8 +108,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['event_location'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a href="" class="btn btn-secondary">Edit</a>
-                              <a href="" class="btn btn-danger">Delete</a>
+                              <a 
+                              href="CRUD/events/eventsUpdate.php/?edit=<?php echo $row['id'];?>" 
+                              class="btn btn-secondary">Edit</a>
+                              <a 
+                              href="CRUD/events/eventsDelete.php/?delete=<?php echo $row['id'];?>" 
+                              class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                       <?php endwhile; ?>

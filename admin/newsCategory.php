@@ -62,8 +62,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['category_name'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                                <a href="" class="btn btn-secondary">Edit</a>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <a href="CRUD/newsCategory/newsCatUpdate.php/?edit=<?php echo $row['category_id'];?>" class="btn btn-secondary">Edit</a>
+                                <a href="CRUD/newsCategory/newsCatDelete.php/?delete=<?php echo $row['category_id'];?>" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>

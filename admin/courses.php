@@ -5,9 +5,9 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT courses.category_title, courses.course_image, user.name
-FROM db_science_univeristy_courses as courses JOIN db_science_university_users as user
-WHERE user.id = courses.db_science_university_user_id";
+$sql = "SELECT courses.id, courses.category_title, courses.course_image, user.name
+FROM db_science_university_courses as courses JOIN db_science_university_users as user
+WHERE user.id = courses.db_science_university_users_id	";
 $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
@@ -66,8 +66,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['course_image'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a href="" class="btn btn-secondary">Edit</a>
-                              <a href="" class="btn btn-danger">Delete</a>
+                              <a 
+                              href="CRUD/courses/coursesUpdate.php/?edit=<?php echo $row['id'];?>" 
+                              class="btn btn-secondary">Edit</a>
+                              <a 
+                              href="CRUD/courses/coursesDelete.php/?delete=<?php echo $row['id'];?>" 
+                              class="btn btn-danger">Delete</a>
                               </td>
                         </tr>
                     <?php endwhile;?>

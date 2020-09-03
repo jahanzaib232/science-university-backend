@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT news.news_title, news.news_description, news.news_date, news_cat.category_name, user.name
+$sql = "SELECT news.id, news.news_title, news.news_description, news.news_date, news_cat.category_name, user.name
 FROM db_science_university_news as news JOIN db_science_university_users as user JOIN news_category as news_cat
 WHERE user.id = news.db_science_university_user_id AND news_cat.category_id = news.news_category_category_id";
 $result = $conn->query($sql);
@@ -86,8 +86,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['news_date']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                                <a href="" class="btn btn-secondary">Edit</a>
-                                <a href="" class="btn btn-danger">Delete</a>
+                                <a 
+                                href="CRUD/news/newsUpdate.php/?edit=<?php echo $row["id"];?>" 
+                                class="btn btn-secondary">Edit</a>
+                                <a 
+                                href="CRUD/news/newsDelete.php/?delete=<?php echo $row["id"];?>" 
+                                class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

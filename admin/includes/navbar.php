@@ -98,6 +98,7 @@ session_start();
       <a class="collapse-item" href="../admin/ticker.php">Ticker</a>
       <a class="collapse-item" href="../admin/events.php">Events</a>
       <a class="collapse-item" href="../admin/forms.php">Forms</a>
+      <a class="collapse-item" href="../admin/config.php">Config</a>
 
       <h6 class="collapse-header">Categories:</h6>
       <a class="collapse-item" href="../admin/newsCategory.php">News Category</a>

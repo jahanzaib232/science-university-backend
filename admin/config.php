@@ -34,10 +34,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="0" required>
+            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="1" required>
             <label for="inputConfigActive">Yes</label>
                   
-            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="1" required>
+            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="0" required>
             <label for="inputConfigActive">No</label>
 
             </label>

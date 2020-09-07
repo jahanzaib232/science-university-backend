@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT menu.menu_id, menu.text, menu.icon, menu.url, menu.parent, menu.type, user.name
+$sql = "SELECT menu.menu_id, menu.title, menu.text, menu.icon, menu.url, menu.parent, menu.type, user.name
 FROM db_science_university_menu as menu JOIN db_science_university_users as user
 WHERE user.id = menu.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -24,12 +24,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
       <div class="modal-body">
         <form method="POST" action="CRUD/menu/menuInsert.php" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="inputMenuType">Type (Footer, Header, Social Media)</label>
+            <label for="inputMenuType">Type (Footer, Social Media)</label>
             <select class="form-control" id="inputMenuType" name="inputMenuType">
               <option value="footer">Footer</option>
-              <option value="header">Header</option>
               <option value="social media">Social Media</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="inputMenuTitle">Title</label>
+            <input type="text" class="form-control" id="inputMenuTitle" name="inputMenuTitle" placeholder="Enter text" required>
           </div>
           <div class="form-group">
             <label for="inputMenuText">Text</label>
@@ -37,7 +40,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputMenuIcon">Menu Icon</label>
-            <input type="file" class="form-control" id="inputMenuIcon" name="inputMenuIcon" placeholder="Choose file" required>
+            <input type="file" class="form-control" id="inputMenuIcon" name="inputMenuIcon" placeholder="Choose file">
           </div>
           <div class="form-group">
             <label for="inputMenuUrl">URL</label>
@@ -70,11 +73,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Title</th>
                             <th>Text</th>
                             <th>Icon</th>
                             <th>URL</th>
                             <th>Parent</th>
-                            <th>Type (Footer, Header, Social Media)</th>
+                            <th>Type (Footer, Social Media)</th>
                             <th>Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -82,6 +86,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     <tbody>
                       <?php while($row = $result->fetch()):?>
                         <tr>
+                            <td><?php echo $row['title']?></td>
                             <td><?php echo $row['text']?></td>
                             <td><?php echo $row['icon']?></td>
                             <td><?php echo $row['url']?></td>

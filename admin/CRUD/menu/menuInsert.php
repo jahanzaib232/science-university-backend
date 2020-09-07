@@ -4,6 +4,7 @@ require_once '../../database.php';
 
 if(isset($_POST['submitBtn'])){
 
+    $menuTitle = $_POST['inputMenuTitle'];
     $menuText = $_POST['inputMenuText'];
     $menuIcon = $_FILES["inputMenuIcon"]["name"]; 
     $menuUrl = $_POST['inputMenuUrl'];
@@ -14,8 +15,8 @@ if(isset($_POST['submitBtn'])){
     $loggedInUser->execute([$_SESSION['email']]);
     $userID = $loggedInUser->fetchColumn();
 
-    $sql = $conn->prepare("INSERT INTO db_science_university_menu (text, icon, url, parent, type, db_science_university_users_id) VALUES (?, ?, ?, ?, ?, ?)");
-    $sql->execute([$menuText, $menuIcon, $menuUrl, $menuParent, $menuType, $userID]);
+    $sql = $conn->prepare("INSERT INTO db_science_university_menu (title, text, icon, url, parent, type, db_science_university_users_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $sql->execute([$menuTitle, $menuText, $menuIcon, $menuUrl, $menuParent, $menuType, $userID]);
     if($runQuery){     
         header('Location: ../../menu.php');
     } else {

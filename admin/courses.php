@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT courses.id, courses.category_title, courses.course_image, user.name
+$sql = "SELECT courses.id, courses.category_title, courses.course_image, courses.course_link, user.name
 FROM db_science_university_courses as courses JOIN db_science_university_users as user
 WHERE user.id = courses.db_science_university_users_id	";
 $result = $conn->query($sql);
@@ -29,6 +29,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           <div class="form-group">
             <label for="inputCourseImage">Course Image</label>
             <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" required>
+          </div>
+          <div class="form-group">
+            <label for="inputCourseLink">Course Link</label>
+            <input type="link" class="form-control" id="inputCourseLink" name="inputCourseLink" placeholder="Enter Link" required>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -55,6 +59,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <th>Course Category</th>
                             <th>Course Image</th>
+                            <th>Course Link</th>
                             <th>Added by Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -64,6 +69,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <td><?php echo $row['category_title'];?></td>
                             <td><?php echo $row['course_image'];?></td>
+                            <td><?php echo $row['course_link'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
                               <a 

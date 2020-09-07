@@ -6,7 +6,7 @@ include_once('includes/navbar.php');
 <?php
 require_once 'database.php';
 
-$sql = "SELECT header.header_id, header.image_path_file, header.header_title, header.order_, user.name 
+$sql = "SELECT header.header_id, header.image_path_file, header.header_text, header.header_title, header.order_, user.name 
 FROM db_science_university_header as header JOIN db_science_university_users as user 
 WHERE user.id = header.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -33,6 +33,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           <div class="form-group">
             <label for="inputHeaderImage">Header Image</label>
             <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link" required>
+          </div>
+          <div class="form-group">
+            <label for="inputHeaderText">Header Text</label>
+            <input type="text" class="form-control" id="inputHeaderText" name="inputHeaderText" aria-describedby="emailHelp" placeholder="Enter link" required>
           </div>
           <div class="form-group">
             <label>Order<br>
@@ -112,6 +116,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <th>Header Title</th>
                             <th>Header Image</th>
+                            <th>Header Text</th>
                             <th>Header Order</th>
                             <th>Admin</th>
                             <th>Operation</th>
@@ -122,6 +127,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <td><?php echo $row['header_title'];?></td>
                             <td><?php echo $row['image_path_file'];?></td>
+                            <td><?php echo $row['header_text'];?></td>
                             <td><?php echo $row['order_'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>

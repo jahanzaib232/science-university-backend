@@ -15,13 +15,13 @@ if(isset($_POST['submitBtn'])){
     $sql = $conn->prepare("INSERT INTO db_science_university_config (config_name, config_value, is_active, db_science_university_users_id) VALUES (?, ?, ?, ?)");
     $sql->execute([$config_name, $config_value, $is_active, $userID]);
     if($runQuery){     
-        header('Location: ../../header.php');
+        header('Location: ../../config.php');
     } else {
         echo 'Insert didnt work';
-        header('Location: ../../header.php');
+        header('Location: ../../config.php');
     }
 } else {
-    header('Location: ../../header.php');
+    header('Location: ../../config.php');
 }
 
 ?>

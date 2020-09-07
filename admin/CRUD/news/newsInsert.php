@@ -5,6 +5,7 @@ require_once '../../database.php';
 if(isset($_POST['submitBtn'])){
 
     $news_title = $_POST['inputNewsTitle'];
+    $news_link = $_POST['inputNewsLink'];
     $news_category = $_POST['newsCategories'];
     $news_description = $_POST['inputNewsDescription'];
     $news_date = $_POST['inputNewsDate'];
@@ -19,9 +20,9 @@ if(isset($_POST['submitBtn'])){
     $newsCategory->execute([$news_category]);
     $newsCategoryId = $newsCategory->fetchColumn();
 
-    $sql = "INSERT INTO db_science_university_news (news_title, news_description, news_date, news_category_category_id, db_science_university_user_id) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO db_science_university_news (news_title, news_link, news_description, news_date, news_category_category_id, db_science_university_user_id) VALUES (?, ?, ?, ?, ?, ?)";
     $result = $conn->prepare($sql);
-    $runQuery = $result->execute([$news_title, $news_description, $news_date, $newsCategoryId, $userID]);
+    $runQuery = $result->execute([$news_title, $news_link, $news_description, $news_date, $newsCategoryId, $userID]);
     if($runQuery){     
         header('Location: ../../news.php');
     } else {

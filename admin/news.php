@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT news.id, news.news_title, news.news_description, news.news_date, news_cat.category_name, user.name
+$sql = "SELECT news.id, news.news_title, news.news_link, news.news_description, news.news_date, news_cat.category_name, user.name
 FROM db_science_university_news as news JOIN db_science_university_users as user JOIN news_category as news_cat
 WHERE user.id = news.db_science_university_user_id AND news_cat.category_id = news.news_category_category_id";
 $result = $conn->query($sql);
@@ -25,6 +25,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           <div class="form-group">
             <label for="inputNewsTitle">News Title</label>
             <input type="text" class="form-control" id="inputNewsTitle" name="inputNewsTitle" placeholder="Enter title" required>
+          </div>
+          <div class="form-group">
+            <label for="inputNewsLink">News Link</label>
+            <input type="link" class="form-control" id="inputNewsLink" name="inputNewsLink" placeholder="Enter title" required>
           </div>
           <div class="form-group">
             <label for="inputNewsCategory">News Category</label>
@@ -71,6 +75,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <th>News Title</th>
                             <th>News Category</th>
+                            <th>News Link</th>
                             <th>Description</th>
                             <th>Date</th>
                             <th>Added by Admin</th>
@@ -82,6 +87,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <td><?php echo $row['news_title']?></td>
                             <td><?php echo $row['category_name']?></td>
+                            <td><?php echo $row['news_link']?></td>
                             <td><?php echo $row['news_description']?></td>
                             <td><?php echo $row['news_date']?></td>
                             <td><?php echo $row['name']?></td>

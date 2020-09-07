@@ -55,20 +55,21 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/navbar/navbarUpdate.php">
+        <form method="POST">
           <div class="form-group">
-            <label for="inputNavTitle">Navigation Title</label>
-            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle"
+            <label for="inputNavTitleEdit">Navigation Title</label>
+            <input type="text" class="form-control" id="inputNavTitleEdit" name="inputNavTitleEdit"
             placeholder="" 
              required>
           </div>
           <div class="form-group">
-            <label for="inputNavLink">Navigation Link</label>
-            <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" 
+            <label for="inputNavLinkEdit">Navigation Link</label>
+            <input type="link" class="form-control" id="inputNavLinkEdit" name="inputNavLinkEdit" 
             placeholder="" 
             required>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
+          <!-- <input type="hidden" name="id" id="id">   -->
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
       </div>
@@ -105,11 +106,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['nav_link']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                              <a 
-                              data-toggle="modal" 
-                              data-target="#updaterow"
-                              href="CRUD/navbar/navbarUpdate.php/?edit=<?php echo $_SESSION['edit'] = $row["id"];?>" 
-                              class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                               <a 
                               href="CRUD/navbar/navbarDelete.php/?delete=<?php echo $row["id"];?>" 
                               class="btn btn-danger">Delete</a>
@@ -127,3 +129,22 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 include('includes/script.php');
 include('includes/footer.php');
 ?>
+
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  // console.log(id);
+  $.ajax({
+    url: 'CRUD/navbar/navbarUpdate.php',
+    method: "POST",
+    data:{data:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      alert(data.nav_link);
+      $('#updaterow').modal('show');
+  }
+  });
+});
+
+</script>

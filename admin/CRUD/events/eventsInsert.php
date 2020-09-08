@@ -7,7 +7,7 @@ if(isset($_POST['submitBtn'])){
     $event_title = $_POST['inputEventTitle'];
     $event_category = $_POST['eventsCategories'];
     $event_description = $_POST['inputEventDescription'];
-    $event_icon = $_FILES["inputEventIcon"]["name"];
+    $event_image = $_FILES["inputEventIcon"]["name"];
     $event_date = $_POST['inputEventDate'];
     $event_start_time = $_POST['inputEventStartTime'];
     $event_end_time = $_POST['inputEventEndTime'];
@@ -23,9 +23,9 @@ if(isset($_POST['submitBtn'])){
     $eventsCategory->execute([$event_category]);
     $eventsCategoryId = $eventsCategory->fetchColumn();
 
-    $sql = "INSERT INTO db_science_university_events (event_title, event_description, event_icon, event_date, event_start_time, event_end_time, event_location, event_category_category_id, db_science_university_users_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO db_science_university_events (event_title, event_description, event_image, event_date, event_start_time, event_end_time, event_location, event_category_category_id, db_science_university_users_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = $conn->prepare($sql);
-    $runQuery = $result->execute([$event_title, $event_description, $event_icon, $event_date, $event_start_time, $event_end_time, $event_location, $eventsCategoryId, $userID]);
+    $runQuery = $result->execute([$event_title, $event_description, $event_image, $event_date, $event_start_time, $event_end_time, $event_location, $eventsCategoryId, $userID]);
     if($runQuery){     
         header('Location: ../../events.php');
     } else {

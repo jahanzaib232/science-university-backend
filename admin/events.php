@@ -4,7 +4,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT events.id, events.event_title, events.event_description, events.event_icon, events.event_date, events.event_start_time, events.event_end_time, events.event_location, events_cat.category_name, user.name
+$sql = "SELECT events.id, events.event_title, events.event_description, events.event_image, events.event_date, events.event_start_time, events.event_end_time, events.event_location, events_cat.category_name, user.name
 FROM db_science_university_events as events JOIN db_science_university_users as user JOIN events_category as events_cat
 WHERE user.id = events.db_science_university_users_id AND events_cat.category_id = events.event_category_category_id";
 $result = $conn->query($sql);
@@ -41,7 +41,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <textarea class="form-control" id="inputEventDescription" name="inputEventDescription" placeholder="Enter Description" required></textarea>
           </div>
           <div class="form-group">
-              <label for="inputEventIcon">Event Icon</label>
+              <label for="inputEventIcon">Event Image</label>
               <input type="file" class="form-control" id="inputEventIcon" name="inputEventIcon" placeholder="Choose file" required>
           </div>
           <div class="form-group">
@@ -100,7 +100,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <textarea class="form-control" id="inputEventDescriptionEdit" name="inputEventDescriptionEdit" placeholder="Enter Description" required></textarea>
           </div>
           <div class="form-group">
-              <label for="inputEventIconEdit">Event Icon</label>
+              <label for="inputEventIconEdit">Event Image</label>
               <input type="file" class="form-control" id="inputEventIconEdit" name="inputEventIconEdit" placeholder="Choose file" required>
           </div>
           <div class="form-group">
@@ -147,7 +147,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Event Title</th>
                             <th>Event Category</th>
                             <th>Description</th>
-                            <th>Event Icon</th>
+                            <th>Event Image</th>
                             <th>Event Date</th>
                             <th>Event start time</th>
                             <th>Event end time</th>
@@ -162,7 +162,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['event_title'];?></td>
                             <td><?php echo $row['category_name'];?></td>
                             <td><?php echo $row['event_description'];?></td>
-                            <td><?php echo $row['event_icon'];?></td>
+                            <td><?php echo $row['event_image'];?></td>
                             <td><?php echo $row['event_date'];?></td>
                             <td><?php echo $row['event_start_time'];?></td>
                             <td><?php echo $row['event_end_time'];?></td>

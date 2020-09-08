@@ -14,7 +14,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">News Section</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Events Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -32,6 +32,33 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
+
+<!-- edit nav row modal start -->
+
+<div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Events Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="CRUD/eventsCategory/eventsCatUpdate.php" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="inputEventsCategoryEdit">Events Category</label>
+            <input type="text" class="form-control" id="inputEventsCategoryEdit" name="inputEventsCategoryEdit" placeholder="Enter Category" required>
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit nav row modal end -->
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -61,8 +88,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['category_name'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                                <a href="CRUD/eventsCategory/eventsCatUpdate.php/?edit=<?php echo $row['category_id'];?>" class="btn btn-secondary">Edit</a>
-                                <a href="CRUD/eventsCategory/eventsCatDelete.php/?delete=<?php echo $row['category_id'];?>" class="btn btn-danger">Delete</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["category_id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
+                                <a 
+                                href="CRUD/eventsCategory/eventsCatDelete.php/?delete=<?php echo $row['category_id'];?>" 
+                                class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                       <?php endwhile;?>
@@ -75,3 +109,21 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <?php 
 include('includes/script.php');
 include('includes/footer.php');?>
+
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/eventsCategory/eventsCatUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      // alert(id);
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

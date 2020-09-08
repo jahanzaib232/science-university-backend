@@ -6,7 +6,7 @@ if(isset($_GET['delete'])){
     $sql = $conn->prepare("DELETE FROM db_science_university_ticker WHERE ticker_id=?");
     $result = $sql->execute([$id]);
     if($result){
-        header('Location: ../../../courses.php');
+        header('Location: ../../../ticker.php');
     } else {
         echo 'SQL statement DELETE was unsuccessful';
     }

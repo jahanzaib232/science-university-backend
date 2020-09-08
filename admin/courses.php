@@ -42,6 +42,41 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   </div>
 </div>
 
+<!-- edit nav row modal start -->
+
+<div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Courses Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="CRUD/courses/coursesUpdate.php" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="inputCourseCategoryEdit">Course Category</label>
+            <input type="text" class="form-control" id="inputCourseCategoryEdit" name="inputCourseCategoryEdit" placeholder="Enter Category" required>
+          </div>
+          <div class="form-group">
+            <label for="inputCourseImageEdit">Course Image</label>
+            <input type="file" class="form-control" id="inputCourseImageEdit" name="inputCourseImageEdit" placeholder="Choose file" required>
+          </div>
+          <div class="form-group">
+            <label for="inputCourseLinkEdit">Course Link</label>
+            <input type="link" class="form-control" id="inputCourseLinkEdit" name="inputCourseLinkEdit" placeholder="Enter Link" required>
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit nav row modal end -->
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -72,9 +107,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['course_link'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a 
-                              href="CRUD/courses/coursesUpdate.php/?edit=<?php echo $row['id'];?>" 
-                              class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                               <a 
                               href="CRUD/courses/coursesDelete.php/?delete=<?php echo $row['id'];?>" 
                               class="btn btn-danger">Delete</a>
@@ -90,3 +128,19 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <?php 
 include('includes/script.php');
 include('includes/footer.php');?>
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/courses/coursesUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

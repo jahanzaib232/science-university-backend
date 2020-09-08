@@ -55,20 +55,20 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST">
+        <form method="POST" action="CRUD/navbar/navbarUpdate.php">
           <div class="form-group">
             <label for="inputNavTitleEdit">Navigation Title</label>
             <input type="text" class="form-control" id="inputNavTitleEdit" name="inputNavTitleEdit"
-            placeholder="" 
+            placeholder="Enter title" 
              required>
           </div>
           <div class="form-group">
             <label for="inputNavLinkEdit">Navigation Link</label>
             <input type="link" class="form-control" id="inputNavLinkEdit" name="inputNavLinkEdit" 
-            placeholder="" 
+            placeholder="Enter link" 
             required>
           </div>
-          <!-- <input type="hidden" name="id" id="id">   -->
+          <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
@@ -134,17 +134,15 @@ include('includes/footer.php');
 
 $(document).on('click', '.edit_data', function(){
   var id = $(this).attr('id');
-  // console.log(id);
   $.ajax({
     url: 'CRUD/navbar/navbarUpdate.php',
     method: "POST",
-    data:{data:id}, 
+    data:{id:id}, 
     success: function(data) {
       var returnedvalue = data;
-      alert(data.nav_link);
       $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
   }
   });
 });
-
 </script>

@@ -44,11 +44,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputMenuUrl">URL</label>
-            <input type="link" class="form-control" id="inputMenuUrl" name="inputMenuUrl" placeholder="Enter URL" required>
+            <input type="link" class="form-control" id="inputMenuUrl" name="inputMenuUrl" placeholder="Enter URL">
           </div>
           <div class="form-group">
             <label for="inputMenuParent">Parent</label>
-            <input type="text" class="form-control" id="inputMenuParent" name="inputMenuParent" placeholder="Select Parent" required>
+            <input type="text" class="form-control" id="inputMenuParent" name="inputMenuParent" placeholder="Select Parent">
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -57,6 +57,56 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
+
+<!-- edit nav row modal start -->
+
+<div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Menu Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="CRUD/menu/menuUpdate.php" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="inputMenuTypeEdit">Type (Footer, Social Media)</label>
+            <select class="form-control" id="inputMenuTypeEdit" name="inputMenuTypeEdit">
+              <option value="footer">Footer</option>
+              <option value="social media">Social Media</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputMenuTitleEdit">Title</label>
+            <input type="text" class="form-control" id="inputMenuTitleEdit" name="inputMenuTitleEdit" placeholder="Enter text" required>
+          </div>
+          <div class="form-group">
+            <label for="inputMenuTextEdit">Text</label>
+            <input type="text" class="form-control" id="inputMenuTextEdit" name="inputMenuTextEdit" placeholder="Enter text" required>
+          </div>
+          <div class="form-group">
+            <label for="inputMenuIconEdit">Menu Icon</label>
+            <input type="file" class="form-control" id="inputMenuIconEdit" name="inputMenuIconEdit" placeholder="Choose file">
+          </div>
+          <div class="form-group">
+            <label for="inputMenuUrlEdit">URL</label>
+            <input type="link" class="form-control" id="inputMenuUrlEdit" name="inputMenuUrlEdit" placeholder="Enter URL">
+          </div>
+          <div class="form-group">
+            <label for="inputMenuParentEdit">Parent</label>
+            <input type="text" class="form-control" id="inputMenuParentEdit" name="inputMenuParentEdit" placeholder="Select Parent">
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit nav row modal end -->
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -94,9 +144,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['type']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                              <a 
-                              href="CRUD/menu/menuUpdate.php/?edit=<?php echo $row["menu_id"];?>" 
-                              class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["menu_id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                               <a 
                               href="CRUD/menu/menuDelete.php/?delete=<?php echo $row["menu_id"];?>" 
                               class="btn btn-danger">Delete</a>
@@ -112,3 +165,21 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <?php 
 include('includes/script.php');
 include('includes/footer.php');?>
+
+
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/menu/menuUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

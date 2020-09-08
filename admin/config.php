@@ -53,7 +53,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
 <!-- edit nav row modal start -->
 
-<!-- <div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -63,26 +63,33 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/config/headerUpdate.php">
+        <form method="POST" action="CRUD/config/configUpdate.php" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="inputNavTitle">Config Name</label>
-            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle"
-            placeholder="" 
-             required>
+            <label for="inputConfigNameEdit">Config Name</label>
+            <input type="text" class="form-control" id="inputConfigNameEdit" name="inputConfigNameEdit" required>
           </div>
           <div class="form-group">
-            <label for="inputHeaderOrder">Config Value</label>
-            <input type="radio" class="form-control" id="inputHeaderOrder" name="inputHeaderOrder" 
-            placeholder="" 
-            required>
+            <label for="inputConfigValueEdit">Config Value</label>
+            <input type="file" class="form-control" id="inputConfigValueEdit" name="inputConfigValueEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="1" required>
+            <label for="inputConfigActiveEdit">Yes</label>
+                  
+            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="0" required>
+            <label for="inputConfigActiveEdit">No</label>
+
+            </label>
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <!-- edit nav row modal end -->
 
 <div class="container-fluid">
@@ -115,11 +122,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['is_active'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a 
-                              data-toggle="modal" 
-                              data-target="#updaterow"
-                              href="CRUD/config/configUpdate.php/?edit=<?php echo $_SESSION['edit'] = $row["id"];?>" 
-                              class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["config_id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                               <a 
                               href="CRUD/config/configDelete.php/?delete=<?php echo $row["config_id"];?>" 
                               class="btn btn-danger">Delete</a>
@@ -137,3 +145,19 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 include('includes/script.php');
 include('includes/footer.php');
 ?>
+<script>
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/config/configUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      // alert(id);
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

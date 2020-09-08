@@ -58,6 +58,56 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   </div>
 </div>
 
+<!-- edit nav row modal start -->
+
+<div class="modal fade" id="updaterow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">News Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="CRUD/news/newsUpdate.php">
+          <div class="form-group">
+            <label for="inputNewsTitleEdit">News Title</label>
+            <input type="text" class="form-control" id="inputNewsTitleEdit" name="inputNewsTitleEdit" placeholder="Enter title" required>
+          </div>
+          <div class="form-group">
+            <label for="inputNewsLinkEdit">News Link</label>
+            <input type="link" class="form-control" id="inputNewsLinkEdit" name="inputNewsLinkEdit" placeholder="Enter title" required>
+          </div>
+          <div class="form-group">
+            <label for="newsCategoriesEdit">News Category</label>
+            <select name="newsCategoriesEdit" class="form-control">
+            <?php 
+            $newsCatSql = "SELECT category_id, category_name FROM news_category";
+            $newsSqlResult = $conn->query($newsCatSql);
+            while($row = $newsSqlResult->fetch()):?>
+              <option  value="<?php echo $row['category_id'];?>"><?php echo $row['category_name'];?></option>
+            <?php endwhile;?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputNewsDescriptionEdit">News description</label>
+            <textarea class="form-control" id="inputNewsDescriptionEdit" name="inputNewsDescriptionEdit" placeholder="Enter description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="inputNewsDateEdit">News Date</label>
+            <input type="date" class="form-control" id="inputNewsDateEdit" name="inputNewsDateEdit" required>
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit nav row modal end -->
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -92,9 +142,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['news_date']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
-                                <a 
-                                href="CRUD/news/newsUpdate.php/?edit=<?php echo $row["id"];?>" 
-                                class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                                 <a 
                                 href="CRUD/news/newsDelete.php/?delete=<?php echo $row["id"];?>" 
                                 class="btn btn-danger">Delete</a>
@@ -110,3 +163,19 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <?php 
 include('includes/script.php');
 include('includes/footer.php');?>
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/news/newsUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

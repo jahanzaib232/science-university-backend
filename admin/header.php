@@ -77,20 +77,39 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="CRUD/header/headerUpdate.php">
-          <div class="form-group">
-            <label for="inputNavTitle">Navigation Title</label>
-            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle"
-            placeholder="" 
-             required>
+        <form method="POST" action="CRUD/header/headerUpdate.php" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="inputHeaderTitleEdit">Header Title</label>
+            <input type="text" class="form-control" id="inputHeaderTitleEdit" name="inputHeaderTitleEdit" placeholder="Enter title" required>
           </div>
           <div class="form-group">
-            <label for="inputHeaderOrder">Navigation Link</label>
-            <input type="radio" class="form-control" id="inputHeaderOrder" name="inputHeaderOrder" 
-            placeholder="" 
-            required>
+            <label for="inputHeaderImageEdit">Header Image</label>
+            <input type="file" class="form-control" id="inputHeaderImageEdit" name="inputHeaderImageEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
+          <div class="form-group">
+            <label for="inputHeaderTextEdit">Header Text</label>
+            <input type="text" class="form-control" id="inputHeaderTextEdit" name="inputHeaderTextEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
+          </div>
+          <div class="form-group">
+            <label>Order<br>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="0" required>
+            <label for="inputHeaderOrderEdit">1</label>
+                  
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="1" required>
+            <label for="inputHeaderOrderEdit">2</label>
+
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="2" required>
+            <label for="inputHeaderOrderEdit">3</label>
+
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="3" required>
+            <label for="inputHeaderOrderEdit">4</label>
+
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="4" required>
+            <label for="inputHeaderOrderEdit">5</label>
+            </label>
+          </div>
+          <input type="hidden" name="id_hidden" id="id_hidden">  
+          <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
       </div>
@@ -131,11 +150,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['order_'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
-                              <a 
-                              data-toggle="modal" 
-                              data-target="#updaterow"
-                              href="CRUD/header/headerUpdate.php/?edit=<?php echo $_SESSION['edit'] = $row["id"];?>" 
-                              class="btn btn-secondary">Edit</a>
+                            <input 
+                            type="button" 
+                            name="edit" 
+                            value="Edit" 
+                            id="<?php echo $row["header_id"]; ?>" 
+                            class="btn btn-secondary btn-xs edit_data" />
                               <a 
                               href="CRUD/header/headerDelete.php/?delete=<?php echo $row["header_id"];?>" 
                               class="btn btn-danger">Delete</a>
@@ -153,3 +173,20 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 include('includes/script.php');
 include('includes/footer.php');
 ?>
+
+<script>
+
+$(document).on('click', '.edit_data', function(){
+  var id = $(this).attr('id');
+  $.ajax({
+    url: 'CRUD/header/headerUpdate.php',
+    method: "POST",
+    data:{id:id}, 
+    success: function(data) {
+      var returnedvalue = data;
+      $('#updaterow').modal('show');
+      $('#id_hidden').val(id);
+  }
+  });
+});
+</script>

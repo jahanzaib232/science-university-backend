@@ -11,6 +11,14 @@ WHERE user.id = courses.db_science_university_users_id	";
 $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
 <div class="modal fade" id="addcourse" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -24,15 +32,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/courses/coursesInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputCourseCategory">Course Category</label>
-            <input type="text" class="form-control" id="inputCourseCategory" name="inputCourseCategory" placeholder="Enter Category" required>
+            <input type="text" class="form-control" id="inputCourseCategory" name="inputCourseCategory" placeholder="Enter Category" >
           </div>
           <div class="form-group">
             <label for="inputCourseImage">Course Image</label>
-            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" required>
+            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" >
           </div>
           <div class="form-group">
             <label for="inputCourseLink">Course Link</label>
-            <input type="link" class="form-control" id="inputCourseLink" name="inputCourseLink" placeholder="Enter Link" required>
+            <input type="text" class="form-control" id="inputCourseLink" name="inputCourseLink" placeholder="Enter Link" >
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -57,15 +65,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/courses/coursesUpdate.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="inputCourseCategoryEdit">Course Category</label>
-            <input type="text" class="form-control" id="inputCourseCategoryEdit" name="inputCourseCategoryEdit" placeholder="Enter Category" required>
+            <input type="text" class="form-control" id="inputCourseCategoryEdit" name="inputCourseCategoryEdit" placeholder="Enter Category" >
           </div>
           <div class="form-group">
             <label for="inputCourseImageEdit">Course Image</label>
-            <input type="file" class="form-control" id="inputCourseImageEdit" name="inputCourseImageEdit" placeholder="Choose file" required>
+            <input type="file" class="form-control" id="inputCourseImageEdit" name="inputCourseImageEdit" placeholder="Choose file" >
           </div>
           <div class="form-group">
             <label for="inputCourseLinkEdit">Course Link</label>
-            <input type="link" class="form-control" id="inputCourseLinkEdit" name="inputCourseLinkEdit" placeholder="Enter Link" required>
+            <input type="text" class="form-control" id="inputCourseLinkEdit" name="inputCourseLinkEdit" placeholder="Enter Link" >
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
@@ -132,15 +140,18 @@ include('includes/footer.php');?>
 
 $(document).on('click', '.edit_data', function(){
   var id = $(this).attr('id');
+  $('#id_hidden').val(id);  
   $.ajax({
-    url: 'CRUD/courses/coursesUpdate.php',
+    url: 'CRUD/courses/getInfo.php',
     method: "POST",
     data:{id:id}, 
     success: function(data) {
-      var returnedvalue = data;
+      newdata = JSON.parse(data);
       $('#updaterow').modal('show');
-      $('#id_hidden').val(id);
-  }
+      $('#inputCourseCategoryEdit').val(newdata.catTitle);
+      $('#inputCourseImageEdit').val(newdata.courseImage);
+      $('#inputCourseLinkEdit').val(newdata.courseLink);
+    }
   });
 });
 </script>

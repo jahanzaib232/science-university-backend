@@ -3,6 +3,8 @@ session_start();
 require_once '../../database.php';
 
 if(isset($_POST['submitBtn'])){
+    $_SESSION['message'] = "Record has been saved successfully";
+    $_SESSION['msg_type'] = "success";
     $eventsCategory = $_POST['inputEventsCategory'];
 
     $loggedInUser = $conn->prepare("SELECT user.id FROM db_science_university_users user WHERE email=?");

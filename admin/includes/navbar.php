@@ -57,15 +57,16 @@ session_start();
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Main Page Sections:</h6>
+      <a class="collapse-item" href="../admin/config.php">Config</a>
       <a class="collapse-item" href="../admin/navbarPages.php">Navbar</a>
-      <a class="collapse-item" href="../admin/header.php">Header</a>
-      <a class="collapse-item" href="../admin/menu.php">Menu</a>
+      <a class="collapse-item" href="../admin/header.php">Image Slider</a>
+      <a class="collapse-item" href="../admin/menu.php">Social Media</a>
       <a class="collapse-item" href="../admin/news.php">News</a>
       <a class="collapse-item" href="../admin/courses.php">Courses</a>
       <a class="collapse-item" href="../admin/ticker.php">Ticker</a>
       <a class="collapse-item" href="../admin/events.php">Events</a>
       <a class="collapse-item" href="../admin/forms.php">Forms</a>
-      <a class="collapse-item" href="../admin/config.php">Config</a>
+      <a class="collapse-item" href="../admin/footer.php">Footer</a>
 
       <h6 class="collapse-header">Categories:</h6>
       <a class="collapse-item" href="../admin/newsCategory.php">News Category</a>
@@ -138,20 +139,7 @@ session_start();
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a name="logoutBtn" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -184,7 +172,7 @@ session_start();
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-          <form action="login.html" method="POST"> 
+          <form action="Login_Register_ForgotPassword/logout.php" method="POST"> 
           
             <button type="submit" name="logout_btn" class="btn btn-primary">Logout</button>
 

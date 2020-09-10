@@ -13,6 +13,15 @@ $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 
 ?>
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
+
 
 <!-- add nav modal start -->
 <div class="modal fade" id="addnav" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -28,11 +37,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/navbar/navbarInsert.php">
           <div class="form-group">
             <label for="inputNavTitle">Navigation Title</label>
-            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputNavTitle" name="inputNavTitle" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="inputNavLink">Navigation Link</label>
-            <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" aria-describedby="emailHelp" placeholder="Enter link"  >
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -60,13 +69,13 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputNavTitleEdit">Navigation Title</label>
             <input type="text" class="form-control" id="inputNavTitleEdit" name="inputNavTitleEdit"
             placeholder="Enter title" 
-             required>
+              >
           </div>
           <div class="form-group">
             <label for="inputNavLinkEdit">Navigation Link</label>
             <input type="link" class="form-control" id="inputNavLinkEdit" name="inputNavLinkEdit" 
             placeholder="Enter link" 
-            required>
+             >
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
@@ -134,14 +143,17 @@ include('includes/footer.php');
 
 $(document).on('click', '.edit_data', function(){
   var id = $(this).attr('id');
+  $('#id_hidden').val(id);  
   $.ajax({
-    url: 'CRUD/navbar/navbarUpdate.php',
+    url: 'CRUD/navbar/getInfo.php',
     method: "POST",
     data:{id:id}, 
     success: function(data) {
-      var returnedvalue = data;
+      newdata = JSON.parse(data);
       $('#updaterow').modal('show');
-      $('#id_hidden').val(id);
+      $('#inputNavTitleEdit').val(newdata.navTitle);
+      $('#inputNavLinkEdit').val(newdata.navLink);
+
   }
   });
 });

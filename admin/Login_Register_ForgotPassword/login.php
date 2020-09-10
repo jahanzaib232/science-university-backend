@@ -23,6 +23,7 @@ if(isset($_POST['loginBtn'])){
             $_SESSION['dateOfBirth'] = $row['DoB'];
         }
     }
+
     
     if($number_of_rows > 0){
         if($hashedPassword == $row['password']){

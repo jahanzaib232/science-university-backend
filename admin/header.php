@@ -13,13 +13,22 @@ $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 
 ?>
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
+
 
 <!-- add nav modal start -->
 <div class="modal fade" id="addnav" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Header Section</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Image Slider Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -28,31 +37,31 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/header/headerInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputHeaderTitle">Header Title</label>
-            <input type="text" class="form-control" id="inputHeaderTitle" name="inputHeaderTitle" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputHeaderTitle" name="inputHeaderTitle" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="inputHeaderImage">Header Image</label>
-            <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link"  >
           </div>
           <div class="form-group">
             <label for="inputHeaderText">Header Text</label>
-            <input type="text" class="form-control" id="inputHeaderText" name="inputHeaderText" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="text" class="form-control" id="inputHeaderText" name="inputHeaderText" aria-describedby="emailHelp" placeholder="Enter link"  >
           </div>
           <div class="form-group">
             <label>Order<br>
-            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="0" required>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="0"  >
             <label for="inputHeaderOrder">1</label>
                   
-            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="1" required>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="1"  >
             <label for="inputHeaderOrder">2</label>
 
-            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="2" required>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="2"  >
             <label for="inputHeaderOrder">3</label>
 
-            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="3" required>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="3"  >
             <label for="inputHeaderOrder">4</label>
 
-            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="4" required>
+            <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="4"  >
             <label for="inputHeaderOrder">5</label>
             </label>
           </div>
@@ -71,7 +80,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Header Section</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Image Slider Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -80,31 +89,31 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/header/headerUpdate.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="inputHeaderTitleEdit">Header Title</label>
-            <input type="text" class="form-control" id="inputHeaderTitleEdit" name="inputHeaderTitleEdit" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputHeaderTitleEdit" name="inputHeaderTitleEdit" placeholder="Enter title" >
           </div>
           <div class="form-group">
             <label for="inputHeaderImageEdit">Header Image</label>
-            <input type="file" class="form-control" id="inputHeaderImageEdit" name="inputHeaderImageEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="file" class="form-control" id="inputHeaderImageEdit" name="inputHeaderImageEdit" aria-describedby="emailHelp" placeholder="Enter link" >
           </div>
           <div class="form-group">
             <label for="inputHeaderTextEdit">Header Text</label>
-            <input type="text" class="form-control" id="inputHeaderTextEdit" name="inputHeaderTextEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="text" class="form-control" id="inputHeaderTextEdit" name="inputHeaderTextEdit" aria-describedby="emailHelp" placeholder="Enter link" >
           </div>
           <div class="form-group">
             <label>Order<br>
-            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="0" required>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="0" >
             <label for="inputHeaderOrderEdit">1</label>
                   
-            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="1" required>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="1" >
             <label for="inputHeaderOrderEdit">2</label>
 
-            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="2" required>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="2" >
             <label for="inputHeaderOrderEdit">3</label>
 
-            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="3" required>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="3" >
             <label for="inputHeaderOrderEdit">4</label>
 
-            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="4" required>
+            <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="4" >
             <label for="inputHeaderOrderEdit">5</label>
             </label>
           </div>
@@ -121,9 +130,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Header
+            <h6 class="m-0 font-weight-bold text-primary">Image Slider
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addnav">
-                    Add Header
+                    Add Image Slider
                 </button>
             </h6>
             
@@ -178,14 +187,18 @@ include('includes/footer.php');
 
 $(document).on('click', '.edit_data', function(){
   var id = $(this).attr('id');
+  $('#id_hidden').val(id);  
   $.ajax({
-    url: 'CRUD/header/headerUpdate.php',
+    url: 'CRUD/header/getInfo.php',
     method: "POST",
     data:{id:id}, 
     success: function(data) {
-      var returnedvalue = data;
+      newdata = JSON.parse(data);
       $('#updaterow').modal('show');
-      $('#id_hidden').val(id);
+      $('#inputHeaderTitleEdit').val(newdata.headerTitle);
+      $('#inputHeaderTextEdit').val(newdata.headerText);
+      $('#inputHeaderImageEdit').val(newdata.headerImage);
+      $('#inputHeaderOrderEdit').val(newdata.headerOrder);
   }
   });
 });

@@ -1,4 +1,5 @@
 <?php 
+
 include_once('includes/header.php');
 include_once('includes/navbar.php');
 
@@ -11,6 +12,14 @@ $result = $conn->query($mySQL);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 
 ?>
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
 
 <!-- add nav modal start -->
 <div class="modal fade" id="addnav" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -26,18 +35,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/config/configInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputConfigName">Config Name</label>
-            <input type="text" class="form-control" id="inputConfigName" name="inputConfigName" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputConfigName" name="inputConfigName" placeholder="Enter title" >
           </div>
           <div class="form-group">
             <label for="inputConfigValue">Config Value</label>
-            <input type="file" class="form-control" id="inputConfigValue" name="inputConfigValue" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="file" class="form-control" id="inputConfigValue" name="inputConfigValue" aria-describedby="emailHelp" placeholder="Enter link" >
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="1" required>
+            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="1" >
             <label for="inputConfigActive">Yes</label>
                   
-            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="0" required>
+            <input type="radio" id="inputConfigActive" name="inputConfigActive" value="0" >
             <label for="inputConfigActive">No</label>
 
             </label>
@@ -66,18 +75,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/config/configUpdate.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputConfigNameEdit">Config Name</label>
-            <input type="text" class="form-control" id="inputConfigNameEdit" name="inputConfigNameEdit" required>
+            <input type="text" class="form-control" id="inputConfigNameEdit" name="inputConfigNameEdit" >
           </div>
           <div class="form-group">
             <label for="inputConfigValueEdit">Config Value</label>
-            <input type="file" class="form-control" id="inputConfigValueEdit" name="inputConfigValueEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
+            <input type="file" class="form-control" id="inputConfigValueEdit" name="inputConfigValueEdit" aria-describedby="emailHelp" placeholder="Enter link" >
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="1" required>
+            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="1" >
             <label for="inputConfigActiveEdit">Yes</label>
                   
-            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="0" required>
+            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="0" >
             <label for="inputConfigActiveEdit">No</label>
 
             </label>
@@ -146,18 +155,23 @@ include('includes/script.php');
 include('includes/footer.php');
 ?>
 <script>
+
 $(document).on('click', '.edit_data', function(){
+  console.log('Works');
   var id = $(this).attr('id');
+  $('#id_hidden').val(id);  
   $.ajax({
-    url: 'CRUD/config/configUpdate.php',
+    url: 'CRUD/config/getInfo.php',
     method: "POST",
     data:{id:id}, 
     success: function(data) {
-      var returnedvalue = data;
-      // alert(id);
+      newdata = JSON.parse(data);
+      // alert(data);
       $('#updaterow').modal('show');
-      $('#id_hidden').val(id);
-  }
+      $('#inputConfigNameEdit').val(newdata.configName);
+      $('#inputConfigValueEdit').val(newdata.configValue);
+      $('#inputConfigActiveEdit').val(newdata.configActive);
+    }
   });
 });
 </script>

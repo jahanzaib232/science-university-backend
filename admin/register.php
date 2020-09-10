@@ -18,11 +18,11 @@ include('includes/navbar.php');?>
         <form method="POST" action="code.php">
           <div class="form-group">
             <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name" required>
+            <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"  >
           </div>
           <div class="form-group">
             <label for="inputEmail">Email address</label>
-            <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"  >
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
@@ -31,11 +31,11 @@ include('includes/navbar.php');?>
           </div>
           <div class="form-group">
             <label for="inputConfirmPassword">Confirm Password</label>
-            <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password" required>
+            <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" placeholder="Confirm Password"  >
           </div>
           <div class="form-group">
             <label for="inputDate">Date</label>
-              <input class="form-control" type="date" id="inputDate" name="inputDate" required>
+              <input class="form-control" type="date" id="inputDate" name="inputDate"  >
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

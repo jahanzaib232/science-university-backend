@@ -11,6 +11,16 @@ WHERE user.id = news.db_science_university_user_id AND news_cat.category_id = ne
 $result = $conn->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
+
+
 <div class="modal fade" id="addnews" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -24,11 +34,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/news/newsInsert.php">
           <div class="form-group">
             <label for="inputNewsTitle">News Title</label>
-            <input type="text" class="form-control" id="inputNewsTitle" name="inputNewsTitle" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputNewsTitle" name="inputNewsTitle" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="inputNewsLink">News Link</label>
-            <input type="link" class="form-control" id="inputNewsLink" name="inputNewsLink" placeholder="Enter title" required>
+            <input type="link" class="form-control" id="inputNewsLink" name="inputNewsLink" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="inputNewsCategory">News Category</label>
@@ -43,11 +53,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputNewsDescription">News description</label>
-            <textarea class="form-control" id="inputNewsDescription" name="inputNewsDescription" placeholder="Enter description" required></textarea>
+            <textarea class="form-control" id="inputNewsDescription" name="inputNewsDescription" placeholder="Enter description"  ></textarea>
           </div>
           <div class="form-group">
             <label for="inputNewsDate">News Date</label>
-            <input type="date" class="form-control" id="inputNewsDate" name="inputNewsDate" required>
+            <input type="date" class="form-control" id="inputNewsDate" name="inputNewsDate"  >
           </div>
          
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
@@ -73,11 +83,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/news/newsUpdate.php">
           <div class="form-group">
             <label for="inputNewsTitleEdit">News Title</label>
-            <input type="text" class="form-control" id="inputNewsTitleEdit" name="inputNewsTitleEdit" placeholder="Enter title" required>
+            <input type="text" class="form-control" id="inputNewsTitleEdit" name="inputNewsTitleEdit" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="inputNewsLinkEdit">News Link</label>
-            <input type="link" class="form-control" id="inputNewsLinkEdit" name="inputNewsLinkEdit" placeholder="Enter title" required>
+            <input type="link" class="form-control" id="inputNewsLinkEdit" name="inputNewsLinkEdit" placeholder="Enter title"  >
           </div>
           <div class="form-group">
             <label for="newsCategoriesEdit">News Category</label>
@@ -86,17 +96,17 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             $newsCatSql = "SELECT category_id, category_name FROM news_category";
             $newsSqlResult = $conn->query($newsCatSql);
             while($row = $newsSqlResult->fetch()):?>
-              <option  value="<?php echo $row['category_id'];?>"><?php echo $row['category_name'];?></option>
+              <option value="<?php echo $row['category_id'];?>"><?php echo $row['category_name'];?></option>
             <?php endwhile;?>
             </select>
           </div>
           <div class="form-group">
             <label for="inputNewsDescriptionEdit">News description</label>
-            <textarea class="form-control" id="inputNewsDescriptionEdit" name="inputNewsDescriptionEdit" placeholder="Enter description" required></textarea>
+            <textarea class="form-control" id="inputNewsDescriptionEdit" name="inputNewsDescriptionEdit" placeholder="Enter description"  ></textarea>
           </div>
           <div class="form-group">
             <label for="inputNewsDateEdit">News Date</label>
-            <input type="date" class="form-control" id="inputNewsDateEdit" name="inputNewsDateEdit" required>
+            <input type="date" class="form-control" id="inputNewsDateEdit" name="inputNewsDateEdit"  >
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
@@ -167,14 +177,19 @@ include('includes/footer.php');?>
 
 $(document).on('click', '.edit_data', function(){
   var id = $(this).attr('id');
+  $('#id_hidden').val(id);  
   $.ajax({
-    url: 'CRUD/news/newsUpdate.php',
+    url: 'CRUD/news/getInfo.php',
     method: "POST",
     data:{id:id}, 
     success: function(data) {
-      var returnedvalue = data;
+      newdata = JSON.parse(data);
       $('#updaterow').modal('show');
-      $('#id_hidden').val(id);
+      $('#inputNewsTitleEdit').val(newdata.newsTitle);
+      $('#inputNewsLinkEdit').val(newdata.newsLink);
+      $('#inputNewsDescriptionEdit').val(newdata.newsDescription);
+      $('#inputNewsDateEdit').val(newdata.newsDate);
+      $('#newsCategoriesEdit').val(newdata.catName);
   }
   });
 });

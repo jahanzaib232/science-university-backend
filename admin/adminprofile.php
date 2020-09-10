@@ -96,4 +96,5 @@ include('includes/navbar.php');?>
 <?php 
 include('includes/script.php');
 include('matchingPassword.php');
-include('includes/footer.php');?>
+include('includes/footer.php');
+?>

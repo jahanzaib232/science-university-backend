@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT courses.id, courses.category_title, courses.course_image, courses.course_link, user.name
+$sql = "SELECT courses.id, courses.category_title, courses.course_image, courses.course_link, courses.is_active, user.name
 FROM db_science_university_courses as courses JOIN db_science_university_users as user
 WHERE user.id = courses.db_science_university_users_id	";
 $result = $conn->query($sql);
@@ -36,11 +36,20 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputCourseImage">Course Image</label>
-            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" >
+            <input type="file" class="form-control" id="inputCourseImage" name="inputCourseImage" placeholder="Choose file" required>
           </div>
           <div class="form-group">
             <label for="inputCourseLink">Course Link</label>
             <input type="text" class="form-control" id="inputCourseLink" name="inputCourseLink" placeholder="Enter Link" >
+          </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputCoursesActive" name="inputCoursesActive" value="1" >
+            <label for="inputCoursesActive">Yes</label>
+                  
+            <input type="radio" id="inputCoursesActive" name="inputCoursesActive" value="0" >
+            <label for="inputCoursesActive">No</label>
+            </label>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -69,11 +78,21 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputCourseImageEdit">Course Image</label>
-            <input type="file" class="form-control" id="inputCourseImageEdit" name="inputCourseImageEdit" placeholder="Choose file" >
+            <input type="file" class="form-control" id="inputCourseImageEdit" name="inputCourseImageEdit" placeholder="Choose file" required>
           </div>
           <div class="form-group">
             <label for="inputCourseLinkEdit">Course Link</label>
             <input type="text" class="form-control" id="inputCourseLinkEdit" name="inputCourseLinkEdit" placeholder="Enter Link" >
+          </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputCoursesActiveEdit_1" name="inputCoursesActiveEdit" value="1" >
+            <label for="inputCoursesActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputCoursesActiveEdit_0" name="inputCoursesActiveEdit" value="0" >
+            <label for="inputCoursesActiveEdit_0">No</label>
+
+            </label>
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
@@ -103,6 +122,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Course Category</th>
                             <th>Course Image</th>
                             <th>Course Link</th>
+                            <th>Is Active</th>
                             <th>Added by Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -113,6 +133,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['category_title'];?></td>
                             <td><?php echo $row['course_image'];?></td>
                             <td><?php echo $row['course_link'];?></td>
+                            <td><?php echo $row['is_active'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
                             <input 
@@ -147,10 +168,19 @@ $(document).on('click', '.edit_data', function(){
     data:{id:id}, 
     success: function(data) {
       newdata = JSON.parse(data);
+      
       $('#updaterow').modal('show');
+      $('#inputCoursesActiveEdit_1').val(newdata.courseActive);
+      $('#inputCoursesActiveEdit_0').val(newdata.courseActive);
+      if(newdata.courseActive == 1){
+        $('#inputCoursesActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputCoursesActiveEdit_0').prop('checked', true);
+      }
       $('#inputCourseCategoryEdit').val(newdata.catTitle);
       $('#inputCourseImageEdit').val(newdata.courseImage);
       $('#inputCourseLinkEdit').val(newdata.courseLink);
+
     }
   });
 });

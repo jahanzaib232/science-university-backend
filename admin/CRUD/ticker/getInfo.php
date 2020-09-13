@@ -4,7 +4,7 @@ require_once '../../database.php';
 
 
 $id = $_POST['id'];
-$SQL = "SELECT ticker.icon_image, ticker.number_, ticker.character_, ticker.character_before_number, ticker.data_target, ticker.inc_or_decr, ticker.description_
+$SQL = "SELECT ticker.icon_image, ticker.number_, ticker.character_, ticker.character_before_number, ticker.data_target, ticker.inc_or_decr, ticker.description_, ticker.is_active
 FROM db_science_university_ticker as ticker 
 WHERE ticker_id='$id'";
 $result = $conn->query($SQL);
@@ -18,6 +18,7 @@ $data['tickerCharBeforeNum'] = $resultCol["character_before_number"];
 $data['tickerTarget'] = $resultCol["data_target"];
 $data['tickerCount'] = $resultCol["inc_or_decr"];
 $data['tickerDescription'] = $resultCol["description_"];
+$data['tickerActive'] = $resultCol["is_active"];
 
 echo json_encode($data);
 

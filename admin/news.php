@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT news.id, news.news_title, news.news_link, news.news_description, news.news_date, news_cat.category_name, user.name
+$sql = "SELECT news.id, news.news_title, news.news_link, news.news_description, news.news_date, news_cat.category_name, news.is_active, user.name
 FROM db_science_university_news as news JOIN db_science_university_users as user JOIN news_category as news_cat
 WHERE user.id = news.db_science_university_user_id AND news_cat.category_id = news.news_category_category_id";
 $result = $conn->query($sql);
@@ -59,7 +59,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputNewsDate">News Date</label>
             <input type="date" class="form-control" id="inputNewsDate" name="inputNewsDate"  >
           </div>
-         
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputNewsActive" name="inputNewsActive" value="1" >
+            <label for="inputNewsActive">Yes</label>
+                  
+            <input type="radio" id="inputNewsActive" name="inputNewsActive" value="0" >
+            <label for="inputNewsActive">No</label>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
@@ -108,6 +116,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputNewsDateEdit">News Date</label>
             <input type="date" class="form-control" id="inputNewsDateEdit" name="inputNewsDateEdit"  >
           </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputNewsActiveEdit_1" name="inputNewsActiveEdit" >
+            <label for="inputNewsActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputNewsActiveEdit_0" name="inputNewsActiveEdit" >
+            <label for="inputNewsActiveEdit_0">No</label>
+            </label>
+          </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -138,6 +155,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>News Link</th>
                             <th>Description</th>
                             <th>Date</th>
+                            <th>Is Active</th>
                             <th>Added by Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -150,6 +168,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['news_link']?></td>
                             <td><?php echo $row['news_description']?></td>
                             <td><?php echo $row['news_date']?></td>
+                            <td><?php echo $row['is_active']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
                             <input 
@@ -190,6 +209,15 @@ $(document).on('click', '.edit_data', function(){
       $('#inputNewsDescriptionEdit').val(newdata.newsDescription);
       $('#inputNewsDateEdit').val(newdata.newsDate);
       $('#newsCategoriesEdit').val(newdata.catName);
+
+      $('#inputNewsActiveEdit_1').val(newdata.newsActive);
+      $('#inputNewsActiveEdit_0').val(newdata.newsActive);
+      if(newdata.newsActive == 1){
+        $('#inputNewsActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputNewsActiveEdit_0').prop('checked', true);
+
+      }
   }
   });
 });

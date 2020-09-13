@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT menu.menu_id, menu.title, menu.text, menu.icon, menu.url, menu.type_, user.name
+$sql = "SELECT menu.menu_id, menu.title, menu.text, menu.icon, menu.url, menu.type_, menu.is_active, user.name
 FROM db_science_university_menu as menu JOIN db_science_university_users as user
 WHERE user.id = menu.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -54,7 +54,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputMenuUrl">URL</label>
             <input type="link" class="form-control" id="inputMenuUrl" name="inputMenuUrl" placeholder="Enter URL">
           </div>
-         
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputMenuActive_1" name="inputMenuActive" value="1" >
+            <label for="inputMenuActive_1">Yes</label>
+                  
+            <input type="radio" id="inputMenuActive_0" name="inputMenuActive" value="0" >
+            <label for="inputMenuActive_0">No</label>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
@@ -96,7 +104,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputMenuUrlEdit">URL</label>
             <input type="link" class="form-control" id="inputMenuUrlEdit" name="inputMenuUrlEdit" placeholder="Enter URL">
           </div>
-  
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputMenuActiveEdit_1" name="inputMenuActiveEdit" value="1" >
+            <label for="inputMenuActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputMenuActiveEdit_0" name="inputMenuActiveEdit" value="0" >
+            <label for="inputMenuActiveEdit_0">No</label>
+            </label>
+          </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -127,6 +143,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Icon</th>
                             <th>URL</th>
                             <th>Type</th>
+                            <th>Is Active</th>
                             <th>Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -139,6 +156,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['icon']?></td>
                             <td><?php echo $row['url']?></td>
                             <td><?php echo $row['type_']?></td>
+                            <td><?php echo $row['is_active']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
                             <input 
@@ -176,12 +194,19 @@ $(document).on('click', '.edit_data', function(){
     success: function(data) {
       $('#updaterow').modal('show');
       newdata = JSON.parse(data);
-      // alert(data);
       $('#inputMenuTypeEdit').val(newdata.menuType);
       $('#inputMenuTitleEdit').val(newdata.menuTitle);
       $('#inputMenuTextEdit').val(newdata.menuText);
       $('#inputMenuIconEdit').val(newdata.menuIcon);
       $('#inputMenuUrlEdit').val(newdata.menuURL);
+      $('#inputMenuActiveEdit_1').val(newdata.menuActive);
+      $('#inputMenuActiveEdit_0').val(newdata.menuActive);
+      if(newdata.menuActive == 1){
+        $('#inputMenuActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputMenuActiveEdit_0').prop('checked', true);
+
+      }
   }
   });
 });

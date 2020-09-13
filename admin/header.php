@@ -6,7 +6,7 @@ include_once('includes/navbar.php');
 <?php
 require_once 'database.php';
 
-$sql = "SELECT header.header_id, header.image_path_file, header.header_text, header.header_title, header.order_, user.name 
+$sql = "SELECT header.header_id, header.image_path_file, header.header_text, header.header_title, header.order_, header.is_active, user.name 
 FROM db_science_university_header as header JOIN db_science_university_users as user 
 WHERE user.id = header.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -41,11 +41,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputHeaderImage">Header Image</label>
-            <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link"  >
+            <input type="file" class="form-control" id="inputHeaderImage" name="inputHeaderImage" aria-describedby="emailHelp" placeholder="Enter link"  required>
           </div>
           <div class="form-group">
             <label for="inputHeaderText">Header Text</label>
-            <input type="text" class="form-control" id="inputHeaderText" name="inputHeaderText" aria-describedby="emailHelp" placeholder="Enter link"  >
+            <input type="text" class="form-control" id="inputHeaderText" name="inputHeaderText" aria-describedby="emailHelp" placeholder="Enter text"  >
           </div>
           <div class="form-group">
             <label>Order<br>
@@ -63,6 +63,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
             <input type="radio" id="inputHeaderOrder" name="inputHeaderOrder" value="4"  >
             <label for="inputHeaderOrder">5</label>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputHeaderActive" name="inputHeaderActive" value="1" >
+            <label for="inputNavbarActiveEdit">Yes</label>
+                  
+            <input type="radio" id="inputHeaderActive" name="inputHeaderActive" value="0" >
+            <label for="inputHeaderActive">No</label>
             </label>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
@@ -93,7 +102,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="inputHeaderImageEdit">Header Image</label>
-            <input type="file" class="form-control" id="inputHeaderImageEdit" name="inputHeaderImageEdit" aria-describedby="emailHelp" placeholder="Enter link" >
+            <input type="file" class="form-control" id="inputHeaderImageEdit" name="inputHeaderImageEdit" aria-describedby="emailHelp" placeholder="Enter link" required>
           </div>
           <div class="form-group">
             <label for="inputHeaderTextEdit">Header Text</label>
@@ -115,6 +124,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
             <input type="radio" id="inputHeaderOrderEdit" name="inputHeaderOrderEdit" value="4" >
             <label for="inputHeaderOrderEdit">5</label>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputHeaderActiveEdit_1" name="inputHeaderActiveEdit" value="1" >
+            <label for="inputHeaderActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputHeaderActiveEdit_0" name="inputHeaderActiveEdit" value="0" >
+            <label for="inputHeaderActiveEdit_0">No</label>
             </label>
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
@@ -146,6 +164,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Header Image</th>
                             <th>Header Text</th>
                             <th>Header Order</th>
+                            <th>Is Active</th>
                             <th>Admin</th>
                             <th>Operation</th>
                         </tr>
@@ -157,6 +176,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['image_path_file'];?></td>
                             <td><?php echo $row['header_text'];?></td>
                             <td><?php echo $row['order_'];?></td>
+                            <td><?php echo $row['is_active'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
                             <input 
@@ -199,6 +219,15 @@ $(document).on('click', '.edit_data', function(){
       $('#inputHeaderTextEdit').val(newdata.headerText);
       $('#inputHeaderImageEdit').val(newdata.headerImage);
       $('#inputHeaderOrderEdit').val(newdata.headerOrder);
+
+      $('#inputHeaderActiveEdit_1').val(newdata.headerActive);
+      $('#inputHeaderActiveEdit_0').val(newdata.headerActive);
+      if(newdata.headerActive == 1){
+        $('#inputHeaderActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputHeaderActiveEdit_0').prop('checked', true);
+
+      }
   }
   });
 });

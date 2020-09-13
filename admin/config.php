@@ -83,10 +83,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="1" >
+            <input type="radio" id="inputConfigActiveEdit_1" name="inputConfigActiveEdit" value="1" >
             <label for="inputConfigActiveEdit">Yes</label>
                   
-            <input type="radio" id="inputConfigActiveEdit" name="inputConfigActiveEdit" value="0" >
+            <input type="radio" id="inputConfigActiveEdit_0" name="inputConfigActiveEdit" value="0" >
             <label for="inputConfigActiveEdit">No</label>
 
             </label>
@@ -170,7 +170,14 @@ $(document).on('click', '.edit_data', function(){
       $('#updaterow').modal('show');
       $('#inputConfigNameEdit').val(newdata.configName);
       $('#inputConfigValueEdit').val(newdata.configValue);
-      $('#inputConfigActiveEdit').val(newdata.configActive);
+      $('#inputConfigActiveEdit_1').val(newdata.configActive);
+      $('#inputConfigActiveEdit_0').val(newdata.configActive);
+      if(newdata.configActive == 1){
+        $('#inputConfigActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputConfigActiveEdit_0').prop('checked', true);
+
+      }
     }
   });
 });

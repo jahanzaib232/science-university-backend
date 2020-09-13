@@ -91,11 +91,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputAdmissionActiveEdit" name="inputAdmissionActiveEdit" value="1" >
-            <label for="inputAdmissionActiveEdit">Yes</label>
+            <input type="radio" id="inputAdmissionActiveEdit_1" name="inputAdmissionActiveEdit" value="1" >
+            <label for="inputAdmissionActiveEdit_1">Yes</label>
                   
-            <input type="radio" id="inputAdmissionActiveEdit" name="inputAdmissionActiveEdit" value="0" >
-            <label for="inputAdmissionActiveEdit">No</label>
+            <input type="radio" id="inputAdmissionActiveEdit_0" name="inputAdmissionActiveEdit" value="0" >
+            <label for="inputAdmissionActiveEdit_0">No</label>
 
             </label>
           </div>
@@ -176,12 +176,19 @@ $(document).on('click', '.edit_data', function(){
     data:{id:id}, 
     success: function(data) {
       newdata = JSON.parse(data);
-      // alert(data);
       $('#updaterow').modal('show');
+
+      $('#inputAdmissionActiveEdit_1').val(newdata.admissionActive);
+      $('#inputAdmissionActiveEdit_0').val(newdata.admissionActive);
+      if(newdata.admissionActive == 1){
+        $('#inputAdmissionActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputAdmissionActiveEdit_0').prop('checked', true);
+      }
       $('#inputAdmissionTitleEdit').val(newdata.admissionName);
       $('#inputAdmissionButtonTextEdit').val(newdata.admissionButton);
       $('#inputAdmissionButtonLinkEdit').val(newdata.admissionLink);
-      $('#inputAdmissionActiveEdit').val(newdata.admissionActive);
+
     }
   });
 });

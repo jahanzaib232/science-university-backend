@@ -9,14 +9,16 @@ if(isset($_POST['submitBtn'])){
     $course_category = $_POST['inputCourseCategory'];
     $course_link = $_POST['inputCourseLink'];
     $course_image = $_FILES["inputCourseImage"]["name"];
+    $course_active = $_POST["inputCoursesActive"];
+
 
     $loggedInUser = $conn->prepare("SELECT user.id FROM db_science_university_users user WHERE email=?");
     $loggedInUser->execute([$_SESSION['email']]);
     $userID = $loggedInUser->fetchColumn();
 
-    $sql = "INSERT INTO db_science_university_courses (category_title, course_image, course_link, db_science_university_users_id) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO db_science_university_courses (category_title, course_image, course_link, is_active, db_science_university_users_id) VALUES (?, ?, ?, ?, ?)";
     $result = $conn->prepare($sql);
-    $runQuery = $result->execute([$course_category, $course_image, $course_link, $userID]);
+    $runQuery = $result->execute([$course_category, $course_image, $course_link, $course_active, $userID]);
     if($runQuery){     
         header('Location: ../../courses.php');
     } else {

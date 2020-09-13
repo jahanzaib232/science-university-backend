@@ -6,7 +6,7 @@ include_once('includes/navbar.php');
 <?php
 require_once 'database.php';
 
-$sql = "SELECT n.id, n.nav_title, n.nav_link, user.name 
+$sql = "SELECT n.id, n.nav_title, n.nav_link, n.is_active, user.name 
 FROM db_science_university_navbar as n JOIN db_science_university_users as user 
 WHERE user.id = n.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -43,6 +43,16 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             <label for="inputNavLink">Navigation Link</label>
             <input type="link" class="form-control" id="inputNavLink" name="inputNavLink" aria-describedby="emailHelp" placeholder="Enter link"  >
           </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputNavbarActive" name="inputNavbarActive" value="1" >
+            <label for="inputNavbarActive">Yes</label>
+                  
+            <input type="radio" id="inputNavbarActive" name="inputNavbarActive" value="0" >
+            <label for="inputNavbarActive">No</label>
+
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
@@ -77,6 +87,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             placeholder="Enter link" 
              >
           </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputNavbarActiveEdit_1" name="inputNavbarActiveEdit" value="1" >
+            <label for="inputNavbarActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputNavbarActiveEdit_0" name="inputNavbarActiveEdit" value="0" >
+            <label for="inputNavbarActiveEdit_0">No</label>
+            </label>
+          </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -104,6 +123,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <th>Navigation Title</th>
                             <th>Navigation Link</th>
+                            <th>Is Active</th>
                             <th>Admin</th>
                             <th>Operation</th>
                         </tr>
@@ -113,6 +133,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <tr>
                             <td><?php echo $row['nav_title']?></td>
                             <td><?php echo $row['nav_link']?></td>
+                            <td><?php echo $row['is_active']?></td>
                             <td><?php echo $row['name']?></td>
                             <td>
                             <input 
@@ -153,6 +174,15 @@ $(document).on('click', '.edit_data', function(){
       $('#updaterow').modal('show');
       $('#inputNavTitleEdit').val(newdata.navTitle);
       $('#inputNavLinkEdit').val(newdata.navLink);
+
+      $('#inputNavbarActiveEdit_1').val(newdata.isActive);
+      $('#inputNavbarActiveEdit_0').val(newdata.isActive);
+      if(newdata.isActive == 1){
+        $('#inputNavbarActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputNavbarActiveEdit_0').prop('checked', true);
+
+      }
 
   }
   });

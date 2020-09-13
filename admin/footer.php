@@ -106,11 +106,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label>Is Active<br>
-            <input type="radio" id="inputFooterActiveEdit" name="inputFooterActiveEdit" value="1">
-            <label for="inputFooterActiveEdit">Yes</label>
+            <input type="radio" id="inputFooterActiveEdit_1" name="inputFooterActiveEdit" value="1">
+            <label for="inputFooterActiveEdit_1">Yes</label>
                   
-            <input type="radio" id="inputFooterActiveEdit" name="inputFooterActiveEdit" value="0">
-            <label for="inputFooterActiveEdit">No</label>
+            <input type="radio" id="inputFooterActiveEdit_0" name="inputFooterActiveEdit" value="0">
+            <label for="inputFooterActiveEdit_0">No</label>
             </label>
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
@@ -194,12 +194,20 @@ $(document).on('click', '.edit_data', function(){
     success: function(data) {
       $('#updaterow').modal('show');
       newdata = JSON.parse(data);
+
+      $('#inputFooterActiveEdit_1').val(newdata.isActive);
+      $('#inputFooterActiveEdit_0').val(newdata.isActive);
+      if(newdata.isActive == 1){
+        $('#inputFooterActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputFooterActiveEdit_0').prop('checked', true);
+      }
+
       $('#inputParentTitleEdit').val(newdata.parentTitle);
       $('#inputItemListEdit').val(newdata.itemList);
       $('#inputItemLinkEdit').val(newdata.itemLink);
       $('#inputItemIconEdit').val(newdata.itemIcon);
       $('#inputFooterImageEdit').val(newdata.image);
-      $('#inputFooterActiveEdit').val(newdata.isActive);
 
   }
   });

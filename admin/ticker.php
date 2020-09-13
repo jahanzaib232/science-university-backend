@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT ticker.ticker_id, ticker.icon_image, ticker.number_, ticker.character_before_number, ticker.character_, ticker.data_target, ticker.inc_or_decr, ticker.description_, user.name
+$sql = "SELECT ticker.ticker_id, ticker.icon_image, ticker.number_, ticker.character_before_number, ticker.character_, ticker.data_target, ticker.inc_or_decr, ticker.description_, ticker.is_active, user.name
 FROM db_science_university_ticker as ticker JOIN db_science_university_users as user
 WHERE user.id = ticker.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -65,6 +65,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
               <label for="inputTickerDescription">Description</label>
               <input type="text" class="form-control" id="inputTickerDescription" name="inputTickerDescription" placeholder="Enter Description"  >
           </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputTickerActive" name="inputTickerActive" value="1" >
+            <label for="inputTickerActive">Yes</label>
+                  
+            <input type="radio" id="inputTickerActive" name="inputTickerActive" value="0" >
+            <label for="inputTickerActive">No</label>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </form>
@@ -108,16 +117,25 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label>Counter<br>
-            <input type="radio" id="inputTickerCountEdit" name="inputTickerCountEdit" value="Increment"  >
-            <label for="inputTickerCountEdit">Increment</label>
+            <input type="radio" id="inputTickerCountEdit_inc" name="inputTickerCountEdit" value="Increment"  >
+            <label for="inputTickerCountEdit_inc">Increment</label>
                   
-            <input type="radio" id="inputTickerCountEdit" name="inputTickerCountEdit" value="Decrement"  >
-            <label for="inputTickerCountEdit">Decrement</label>
+            <input type="radio" id="inputTickerCountEdit_decr" name="inputTickerCountEdit" value="Decrement"  >
+            <label for="inputTickerCountEdit_decr">Decrement</label>
             </label>
           </div>
           <div class="form-group">
               <label for="inputTickerDescriptionEdit">Description</label>
               <input type="text" class="form-control" id="inputTickerDescriptionEdit" name="inputTickerDescriptionEdit" placeholder="Enter Description"  >
+          </div>
+          <div class="form-group">
+            <label>Is Active<br>
+            <input type="radio" id="inputTickerActiveEdit_1" name="inputTickerActiveEdit" value="1" >
+            <label for="inputTickerActiveEdit_1">Yes</label>
+                  
+            <input type="radio" id="inputTickerActiveEdit_0" name="inputTickerActiveEdit" value="0" >
+            <label for="inputTickerActiveEdit_0">No</label>
+            </label>
           </div>
           <input type="hidden" name="id_hidden" id="id_hidden">  
           <button type="submit" class="btn btn-primary" id="insert" name="updateBtn">Update</button>
@@ -151,6 +169,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Character Before Number</th>
                             <th>Counter</th>
                             <th>Description</th>
+                            <th>Is Active</th>
                             <th>Admin</th>
                             <th>Operations</th>
                         </tr>
@@ -165,6 +184,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['character_before_number'];?></td>
                             <td><?php echo $row['inc_or_decr'];?></td>
                             <td><?php echo $row['description_'];?></td>
+                            <td><?php echo $row['is_active'];?></td>
                             <td><?php echo $row['name'];?></td>
                             <td>
                             <input 
@@ -200,14 +220,32 @@ $(document).on('click', '.edit_data', function(){
     data:{id:id}, 
     success: function(data) {
       newdata = JSON.parse(data);
-      
       $('#updaterow').modal('show');
+
+      $('#inputTickerActiveEdit_1').val(newdata.tickerActive);
+      $('#inputTickerActiveEdit_0').val(newdata.tickerActive);
+      if(newdata.tickerActive == 1){
+        $('#inputTickerActiveEdit_1').prop('checked', true);
+      } else {
+        $('#inputTickerActiveEdit_0').prop('checked', true);
+      }
+
+      $('#inputCharacterBeforeNumEdit').val(newdata.tickerCharBeforeNum);
+      if(newdata.tickerCharBeforeNum == 'on'){
+        $('#inputCharacterBeforeNumEdit').prop('checked', true)
+      }
+
+      $('#inputTickerCountEdit_inc').val(newdata.tickerCount);
+      $('#inputTickerCountEdit_decr').val(newdata.tickerCount);
+      if(newdata.tickerCount == 'Increment'){
+        $('#inputTickerCountEdit_inc').prop('checked', true);
+      } else {
+        $('#inputTickerCountEdit_decr').prop('checked', true);
+      }
       $('#inputIconImageEdit').text(newdata.tickerImage);
       $('#inputTickerNumberEdit').val(newdata.tickerNumber);
       $('#inputTickerCharacterEdit').val(newdata.tickerCharacter);
-      $('#inputCharacterBeforeNumEdit').val(newdata.tickerCharBeforeNum);
       $('#inputDataTargetEdit').val(newdata.tickerTarget);
-      $('#inputTickerCountEdit').val(newdata.tickerCount);
       $('#inputTickerDescriptionEdit').val(newdata.tickerDescription);
     }
   });

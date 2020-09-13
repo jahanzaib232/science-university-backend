@@ -9,10 +9,11 @@ if(isset($_POST['updateBtn'])){
     $id = $_POST['id_hidden'];
     $nav_title_edit = $_POST['inputNavTitleEdit'];
     $nav_link_edit = $_POST['inputNavLinkEdit'];
+    $navbar_active_edit = $_POST['inputNavbarActiveEdit'];
     if(isset($_POST['updateBtn'])){
-        $updateSQL = "UPDATE db_science_university_navbar SET nav_title=?, nav_link=? WHERE id='$id'";
+        $updateSQL = "UPDATE db_science_university_navbar SET nav_title=?, nav_link=?, is_active=? WHERE id='$id'";
         $result = $conn->prepare($updateSQL);
-        $runQuery = $result->execute([$nav_title_edit, $nav_link_edit]);
+        $runQuery = $result->execute([$nav_title_edit, $nav_link_edit, $navbar_active_edit]);
         if($runQuery){
             header('Location: ../../navbarPages.php');
         } else {

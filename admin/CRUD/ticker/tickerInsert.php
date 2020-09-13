@@ -12,8 +12,8 @@ if(isset($_POST['submitBtn'])){
     $ticker_description = $_POST['inputTickerDescription'];
     $data_target = $_POST['inputDataTarget'];
     $ticker_character = $_POST['inputTickerCharacter'];
-    $ticker_character_before_num = $_POST['inputCharacterBeforeNum'];
     $ticker_active = $_POST['inputTickerActive'];
+    $ticker_character_before_num = $_POST['inputCharacterBeforeNum'];
 
     $loggedInUser = $conn->prepare("SELECT user.id FROM db_science_university_users user WHERE email=?");
     $loggedInUser->execute([$_SESSION['email']]);

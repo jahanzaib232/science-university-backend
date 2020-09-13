@@ -5,7 +5,7 @@ include('includes/navbar.php');
 require_once 'database.php';
 
 
-$sql = "SELECT ticker.ticker_id, ticker.icon_image, ticker.number_, ticker.character_, ticker.data_target, ticker.inc_or_decr, ticker.description_, user.name
+$sql = "SELECT ticker.ticker_id, ticker.icon_image, ticker.number_, ticker.character_before_number, ticker.character_, ticker.data_target, ticker.inc_or_decr, ticker.description_, user.name
 FROM db_science_university_ticker as ticker JOIN db_science_university_users as user
 WHERE user.id = ticker.db_science_university_users_id";
 $result = $conn->query($sql);
@@ -34,19 +34,23 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/ticker/tickerInsert.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="inputIconImage">Icon Image</label>
-            <input type="file" class="form-control" id="inputIconImage" name="inputIconImage"  >
+            <input type="file" class="form-control" id="inputIconImage" name="inputIconImage"  required>
           </div>
           <div class="form-group">
             <label for="inputTickerNumber">Number</label>
-            <input type="text" class="form-control" id="inputTickerNumber" name="inputTickerNumber" placeholder="Select Category"  >
+            <input type="text" class="form-control" id="inputTickerNumber" name="inputTickerNumber" placeholder="Enter Ticker Number"  >
           </div>
           <div class="form-group">
             <label for="inputDataTarget">Data Target</label>
-            <input type="text" class="form-control" id="inputDataTarget" name="inputDataTarget" placeholder="Select Category"  >
+            <input type="text" class="form-control" id="inputDataTarget" name="inputDataTarget" placeholder="Enter Data Target"  >
           </div>
           <div class="form-group">
             <label for="inputTickerCharacter">Character</label>
-            <input type="text" class="form-control" id="inputTickerCharacter" name="inputTickerCharacter" placeholder="Select Category">
+            <input type="text" class="form-control" id="inputTickerCharacter" name="inputTickerCharacter" placeholder="Enter Character">
+          </div>
+          <div class="form-group">
+            <label for="inputCharacterBeforeNum">Character Before Number</label>
+            <input type="checkbox" id="inputCharacterBeforeNum" name="inputCharacterBeforeNum" value='1'>
           </div>
           <div class="form-group">
             <label>Counter<br>
@@ -84,19 +88,23 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <form method="POST" action="CRUD/ticker/tickerUpdate.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="inputIconImageEdit">Icon Image</label>
-            <input type="file" class="form-control" id="inputIconImageEdit" name="inputIconImageEdit"  >
+            <input type="file" class="form-control" id="inputIconImageEdit" name="inputIconImageEdit"  required>
           </div>
           <div class="form-group">
             <label for="inputTickerNumberEdit">Number</label>
-            <input type="text" class="form-control" id="inputTickerNumberEdit" name="inputTickerNumberEdit" placeholder="Select "  >
+            <input type="text" class="form-control" id="inputTickerNumberEdit" name="inputTickerNumberEdit" >
           </div>
           <div class="form-group">
             <label for="inputDataTargetEdit">Data Target</label>
-            <input type="text" class="form-control" id="inputDataTargetEdit" name="inputDataTargetEdit" placeholder="Select "  >
+            <input type="text" class="form-control" id="inputDataTargetEdit" name="inputDataTargetEdit" >
           </div>
           <div class="form-group">
             <label for="inputTickerCharacterEdit">Character</label>
-            <input type="text" class="form-control" id="inputTickerCharacterEdit" name="inputTickerCharacterEdit" placeholder="Select Category">
+            <input type="text" class="form-control" id="inputTickerCharacterEdit" name="inputTickerCharacterEdit" >
+          </div>
+          <div class="form-group">
+            <label for="inputCharacterBeforeNumEdit">Character Before Number</label>
+            <input type="checkbox" id="inputCharacterBeforeNumEdit" name="inputCharacterBeforeNumEdit" value='1'>
           </div>
           <div class="form-group">
             <label>Counter<br>
@@ -140,6 +148,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <th>Ticker Start Number</th>
                             <th>Target</th>
                             <th>Character</th>
+                            <th>Character Before Number</th>
                             <th>Counter</th>
                             <th>Description</th>
                             <th>Admin</th>
@@ -153,6 +162,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['number_'];?></td>
                             <td><?php echo $row['data_target'];?></td>
                             <td><?php echo $row['character_'];?></td>
+                            <td><?php echo $row['character_before_number'];?></td>
                             <td><?php echo $row['inc_or_decr'];?></td>
                             <td><?php echo $row['description_'];?></td>
                             <td><?php echo $row['name'];?></td>
@@ -190,10 +200,12 @@ $(document).on('click', '.edit_data', function(){
     data:{id:id}, 
     success: function(data) {
       newdata = JSON.parse(data);
+      
       $('#updaterow').modal('show');
       $('#inputIconImageEdit').text(newdata.tickerImage);
       $('#inputTickerNumberEdit').val(newdata.tickerNumber);
       $('#inputTickerCharacterEdit').val(newdata.tickerCharacter);
+      $('#inputCharacterBeforeNumEdit').val(newdata.tickerCharBeforeNum);
       $('#inputDataTargetEdit').val(newdata.tickerTarget);
       $('#inputTickerCountEdit').val(newdata.tickerCount);
       $('#inputTickerDescriptionEdit').val(newdata.tickerDescription);

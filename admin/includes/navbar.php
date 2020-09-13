@@ -1,5 +1,9 @@
 <?php 
 session_start();
+if(!isset($_SESSION['username'])){
+  header('Location: ../admin/404.php');
+
+}
 ?>  
   <!-- Sidebar -->
    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -66,6 +70,7 @@ session_start();
       <a class="collapse-item" href="../admin/ticker.php">Ticker</a>
       <a class="collapse-item" href="../admin/events.php">Events</a>
       <a class="collapse-item" href="../admin/forms.php">Forms</a>
+      <a class="collapse-item" href="../admin/admission.php">Admission</a>
       <a class="collapse-item" href="../admin/footer.php">Footer</a>
 
       <h6 class="collapse-header">Categories:</h6>

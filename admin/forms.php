@@ -18,6 +18,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
 </div>
 <?php endif ?>
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -45,8 +46,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td><?php echo $row['form_sender_message'];?></td>
                             <td><?php echo $row['form_sender_email'];?></td>
                             <td><?php echo $row['form_sender_phone'];?></td>
-                            <td><?php var_dump($_SESSION['formsThatHaveBeenRead']);?></td>
-                            <!-- $row['time_stamp']; -->
+                            <td><?php echo $row['time_stamp'];?></td>
+                            <!-- $row['time_stamp']; var_dump($_SESSION['formsThatHaveBeenRead']);-->
                             <td>
                                 <a 
 

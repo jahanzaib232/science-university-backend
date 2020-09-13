@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../database.php';
 
@@ -10,6 +11,9 @@ if(isset($_POST['submitBtn'])){
     $password = $_POST['inputPassword'];
     $confirmPass = $_POST['inputConfirmPassword'];
     $dateOfBirth = $_POST['inputDate'];
+
+    $_SESSION['message'] = "Record has been saved successfully";
+    $_SESSION['msg_type'] = "success";
 
     // hash password
     $salt = 'ERigjdsg943dg'.$password;

@@ -10,6 +10,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 include('includes/header.php');
 include('includes/navbar.php');?>
 
+<?php if(isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?=$_SESSION['msg_type']?>">
+    <?php
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+    ?>
+</div>
+<?php endif ?>
+
 
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

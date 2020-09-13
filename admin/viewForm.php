@@ -25,42 +25,49 @@ if(isset($_GET['form_id'])){
         echo "<label for='exampleFormControlFile1'>";
         echo "Sender Name: ";
         echo "</label>";
-        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderName'>";
+        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderName' readonly>";
         echo "</div>";
         echo "<div class='form-group'>";
         echo "<label for='exampleFormControlFile1'>";
         echo "Sender Phone: ";
         echo "</label>";
-        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderPhone'>";
+        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderPhone' readonly>";
         echo "</div>";
         echo "<div class='form-group'>";
         echo "<label for='exampleFormControlFile1'>";
         echo "Sender Email: ";
         echo "</label>";
-        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderEmail'>";
+        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$senderEmail' readonly>";
         echo "</div>";
         echo "<div class='form-group'>";
         echo "<label for='exampleFormControlFile1'>";
         echo "Sender Message: ";
         echo "</label>";
-        echo "<textarea class='form-control' id='senderName' name='senderName'>$senderMessage</textarea>";
+        echo "<textarea rows='5' cols='100' class='form-control' id='senderName' name='senderName' readonly>$senderMessage</textarea>";
         echo "</div>";
         echo "<div class='form-group'>";
         echo "<label for='exampleFormControlFile1'>";
         echo "Time Stamp: ";
         echo "</label>";
-        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$timeStamp'>";
+        echo "<input type='text' class='form-control' id='senderName' name='senderName' value='$timeStamp' readonly>";
         echo "</div>";
         echo "<div class='float-right'>";
-        echo "<button type='submit' class='btn btn-primary mr-3' id='read' name='submitBtn'><a href='forms.php?form_id=$senderID' class='text-light'>Read</a></button>";
-        echo "<button type='button' class='btn btn-secondary' name='closeForm'>Close</button>";
+        echo "<button type='submit' class='btn btn-primary mr-3' id='read' name='submitBtn'>Read</button>";
+        echo "<button type='button' class='btn btn-secondary' name='closeForm' onclick='return returnFunction();'>Return</button>";
         echo "</div>";
         echo "</form>";
 
-        $array = array($senderID);
-        $_SESSION['formsThatHaveBeenRead'] = $array;
+        // $array = array($senderID);
+        // $_SESSION['formsThatHaveBeenRead'] = $array;
     }
 }
+
 include('includes/script.php');
 include('includes/footer.php');
 ?>
+
+<script>
+function returnFunction(){
+window.location.href = 'forms.php';
+}
+</script>
